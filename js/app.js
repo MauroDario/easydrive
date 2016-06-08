@@ -1,7 +1,16 @@
 var db = null;
 
-var myApp = angular.module('starter', ['ionic', 'ngCordova'])
-  .run(function ($ionicPlatform, $cordovaSQLite) {
+var myApp = angular.module('starter', ['ionic', 'ngCordova', '$resource'])
+  .run(function ($ionicPlatform, $cordovaSQLite, $rootScope, translationService) {
+       /* Traductor */
+    /*$rootScope.translate = function (language, value) {
+        $rootScope.selectedLanguage = language;
+        $rootScope.selectedLanguageValue = value;
+        translationService.getTranslation($rootScope, $rootScope.selectedLanguage);
+    };
+
+    $rootScope.translate('es_ES', 'es-AR');*/
+    
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -13,7 +22,7 @@ var myApp = angular.module('starter', ['ionic', 'ngCordova'])
       if (window.cordova) {
         db = $cordovaSQLite.openDB({
           name: "my.db",
-          
+          location: "default"
         }); //device
         console.log("Android");
       } else {
@@ -29,7 +38,18 @@ var myApp = angular.module('starter', ['ionic', 'ngCordova'])
     });
   });
 
-myApp.controller("ExampleController", function ($scope, $cordovaSQLite) {
+myApp.service('translationService', function ($resource) {
+    this.getTranslation = function ($rootScope, language) {
+        var languageFilePath = 'Resources/i18n/translation_' + language + '.json';
+        //console.log(languageFilePath);
+        $resource(languageFilePath).get(function (data) {
+            $rootScope.translation = data;
+            //tmhDynamicLocale.set($rootScope.translation.language);
+        });
+    };
+});
+
+myApp.controller("ExampleController", function ($scope, $cordovaSQLite, $rootScope) {
 
   $scope.insert = function (firstname, lastname) {
     var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
@@ -41,8 +61,9 @@ myApp.controller("ExampleController", function ($scope, $cordovaSQLite) {
   }
 
   $scope.select = function (lastname) {
-    var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
-    $cordovaSQLite.execute(db, query, [lastname]).then(function (res) {
+    var query = "SELECT firstname, lastname FROM people";
+    //$cordovaSQLite.execute(db, query, []).then(function (res) {
+    SqlService.execute(query,[]).then(function (res) {
       if (res.rows.length > 0) {
         $scope.data = res.rows.item(0).firstname;
         console.log("SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname);

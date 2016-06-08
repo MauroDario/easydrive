@@ -1,0 +1,15 @@
+{
+  "language": "en-us",
+  "oilChange": "Oil change",
+  "OilFilterChange": "Oil filter change",
+  "AirFilterChange": "Air filter change",
+  "CabinFilterChange": "Cabin filter change",
+  "PlugsChange": "Plugs change",
+  "TiresChange": "Tires change",
+  "DampersChange": "Dampers change",
+  "CarWorkshopReview": "Car workshop review",
+  "Coolantchange": "Coolant change",
+  "Brakepadschange": "Brake pads change",
+  "Brakefluidchange": "Brake fluid change",
+  "Timingbeltchange": "Timing belt change"
+}

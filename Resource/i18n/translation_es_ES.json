@@ -1,0 +1,15 @@
+{
+  "language": "es-ar",
+  "oilChange": "Cambio de aceite",
+  "OilFilterChange": "Cambio de filtro de aceite",
+  "AirFilterChange": "Cambio de filtro de aire",
+  "CabinFilterChange": "Cambio de filtro de habitáculo",
+  "PlugsChange": "Cambio de bujías",
+  "TiresChange": "Cambio de neumáticos",
+  "DampersChange": "Cambio de amortiguadores",
+  "CarWorkshopReview": "Revisión periódica taller",
+  "Coolantchange": "Cambio de líquido refrigerante",
+  "Brakepadschange": "Cambio de pastillas de freno",
+  "Brakefluidchange": "Cambio de líquido de frenos",
+  "Timingbeltchange": "Cambio de correa de distribución"
+}
