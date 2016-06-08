@@ -1,15 +1,10 @@
 var db = null;
 
-var myApp = angular.module('starter', ['ionic', 'ngCordova', '$resource'])
-  .run(function ($ionicPlatform, $cordovaSQLite, $rootScope, translationService) {
-       /* Traductor */
-    /*$rootScope.translate = function (language, value) {
-        $rootScope.selectedLanguage = language;
-        $rootScope.selectedLanguageValue = value;
-        translationService.getTranslation($rootScope, $rootScope.selectedLanguage);
-    };
-
-    $rootScope.translate('es_ES', 'es-AR');*/
+var myApp = angular.module('starter', ['ionic', 'ngCordova','starter.services'])
+  .run(function ($ionicPlatform, $cordovaSQLite, $rootScope, translationService) {    
+    
+    //cambiar
+    translationService.getTranslation($rootScope,"es_ES");
     
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -30,30 +25,15 @@ var myApp = angular.module('starter', ['ionic', 'ngCordova', '$resource'])
         console.log("browser");
 
       }
-
-      //            db = $cordovaSQLite.openDB({
-      //                name: 'my.db'
-      //            });
       $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
     });
   });
 
-myApp.service('translationService', function ($resource) {
-    this.getTranslation = function ($rootScope, language) {
-        var languageFilePath = 'Resources/i18n/translation_' + language + '.json';
-        //console.log(languageFilePath);
-        $resource(languageFilePath).get(function (data) {
-            $rootScope.translation = data;
-            //tmhDynamicLocale.set($rootScope.translation.language);
-        });
-    };
-});
-
-myApp.controller("ExampleController", function ($scope, $cordovaSQLite, $rootScope) {
+myApp.controller("ExampleController", function ($scope, sqlService, $rootScope) {
 
   $scope.insert = function (firstname, lastname) {
     var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
-    $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function (res) {
+    sqlService.execute(db, query, [firstname, lastname]).then(function (res) {
       console.log("INSERT ID -> " + res.insertId);
     }, function (err) {
       console.error(err);
@@ -63,7 +43,7 @@ myApp.controller("ExampleController", function ($scope, $cordovaSQLite, $rootSco
   $scope.select = function (lastname) {
     var query = "SELECT firstname, lastname FROM people";
     //$cordovaSQLite.execute(db, query, []).then(function (res) {
-    SqlService.execute(query,[]).then(function (res) {
+    sqlService.execute(query,[]).then(function (res) {
       if (res.rows.length > 0) {
         $scope.data = res.rows.item(0).firstname;
         console.log("SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname);
@@ -78,7 +58,7 @@ myApp.controller("ExampleController", function ($scope, $cordovaSQLite, $rootSco
 
   $scope.delete = function () {
     var query = "DELETE FROM people";
-    $cordovaSQLite.execute(db, query).then(function (res) {
+    sqlService.execute(db, query).then(function (res) {
       console.log("DELETE ALL");
     }, function (err) {
       console.error(err);
