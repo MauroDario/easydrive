@@ -1,0 +1,55 @@
+<ion-side-menus enable-menu-with-back-views="true">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="side-menu21"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" id="side-menu21">
+        <ion-header-bar class="bar-stable">
+            <div class="title">Menu</div>
+        </ion-header-bar>
+        <ion-content padding="false" class="side-menu-left has-header">
+            <form id="menu-form1" class="list ">
+                <label class="item item-select " id="menu-select1" name="ddlLanguage">
+                    <span class="input-label">Idioma</span>
+                    <select>
+                        <option>Español</option>
+                        <option>Inglés</option>
+                    </select>
+                </label>
+            </form>
+            <form id="menu-form4" class="list ">
+                <ion-list id="menu-list3" class=" ">
+                    <ion-item class="item-icon-left positive  " id="menu-list-item10" ui-sref="menu.oilChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>OilChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item13" ui-sref="menu.oilFilterChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>OilFilterChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item11" ui-sref="menu.airFilterChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>AirFilterChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item12" ui-sref="menu.cabinFilterChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>CabinFilterChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item27" ui-sref="menu.plugsChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>PlugsChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item28" ui-sref="menu.tiresChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>TiresChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item29" ui-sref="menu.dampersChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>DampersChange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item30" ui-sref="menu.carWorkshopReview" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>CarWorkshopReview</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item31" ui-sref="menu.coolantchange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>Coolantchange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item32" ui-sref="menu.brakepadschange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>Brakepadschange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item33" ui-sref="menu.brakefluidchange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>Brakefluidchange</ion-item>
+                    <ion-item class="item-icon-left positive  " id="menu-list-item34">
+                        <i class="icon ion-ios-arrow-forward"></i>Timingbeltchange</ion-item>
+                </ion-list>
+            </form>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
