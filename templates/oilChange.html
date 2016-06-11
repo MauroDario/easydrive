@@ -1,18 +1,25 @@
 <ion-view title="OilChange" id="page2" class=" ">
-    <ion-content padding="true" class="has-header">
-        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+  <ion-content padding="true" class="has-header">
+    <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
+      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    </div>
+    <form id="oilChange-form5" class="list " ng-submit="update()">
+      <div>
+        <div class="text-center">
+          <p>¿Cada cuanto desea controlar el cambio de aceite?
+          </p>
         </div>
-        <form id="oilChange-form5" class="list ">
-            <div>
-                <div class="text-center">
-                    <p>¿Cada cuanto desea controlar el cambio de aceite?
-                    </p>
-                </div>
-            </div>
-            <ion-item class="range range-positive " id="oilChange-range1">
-                <input type="range" value="365" min="0" max="730">
-            </ion-item>
-        </form>
-    </ion-content>
+        <div class="text-center">
+          <p>{{foo.days}}
+          </p>
+        </div>
+      </div>
+      <ion-item class="range range-positive " id="oilChange-range1">
+        <input type="range"  min="0" max="730" ng-model="foo.days">
+      </ion-item>
+      <ion-item class="" id="submitBtn">
+        <input type="submit" value="actualizar">
+      </ion-item>
+    </form>
+  </ion-content>
 </ion-view>
