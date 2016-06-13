@@ -50,27 +50,25 @@ angular.module('app.service', ['ngResource'])
     self.select = function (id) {
         var query = "SELECT id, day_value FROM abm_values WHERE id = ?";
         return $cordovaSQLite.execute(db, query, [id]);
-
     };
 
     self.deleteAll = function () {
-        var query = "DELETE FROM abm_values";
-        $cordovaSQLite.execute(db, query).then(function (res) {
-            console.log("DELETE ALL");
-        }, function (err) {
-            console.error(err);
-        });
+      var query = "DELETE FROM abm_values";
+      $cordovaSQLite.execute(db, query).then(function (res) {
+        console.log("DELETE ALL");
+      }, function (err) {
+        console.error(err);
+      });
     };
 
     self.delete = function (id) {
-        var query = "DELETE FROM abm_values WHERE id = ?";
-        $cordovaSQLite.execute(db, query, [id]).then(function (res) {
-            console.log("DELETE ALL");
-        }, function (err) {
-            console.error(err);
-        });
+      var query = "DELETE FROM abm_values WHERE id = ?";
+      $cordovaSQLite.execute(db, query, [id]).then(function (res) {
+        console.log("DELETE ALL");
+      }, function (err) {
+        console.error(err);
+      });
     };
-
 
     self.update = function (day_value, id) {
         var query = "UPDATE abm_values SET day_value = ? WHERE id = ?";
