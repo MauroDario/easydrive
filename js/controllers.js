@@ -35,7 +35,7 @@ angular.module('app.controllers', ['app.service'])
 
 })
 
-.controller('oilChangeCtrl', function ($scope, sqlService) {
+.controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification) {
     sqlService.select("oilChangeCtrl").then(function (data) {
         $scope.foo = {
             days: 0
@@ -52,8 +52,16 @@ angular.module('app.controllers', ['app.service'])
     });
 
     $scope.update = function () {
+        var now= new Date().getTime(),
+        _5_sec_from_now = new Date(now + 5*1000);
         console.log("updateto: " + $scope.foo.days);
         sqlService.insertOrUpdate("oilChange", $scope.foo.days);
+        cordova.plugins.notification.local.schedule({
+            text: "Delayed Notification",
+            at: _5_sec_from_now,
+            led: "FF0000",
+            sound: null
+        });
     };
 })
 
@@ -66,7 +74,7 @@ angular.module('app.controllers', ['app.service'])
         $scope.daysInput = {
             value: 0
         };
-        
+
         if (data.rows.length > 0) {
             $scope.daysInput.value = data.rows.item(0).day_value;
             console.log("se obtuvo " + $scope.daysInput.value);
