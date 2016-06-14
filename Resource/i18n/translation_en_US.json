@@ -1,9 +1,13 @@
 {
     "language": "en-US",
     "languageStr": "Language",
+    
     "spa": "Spanish",
     "eng": "English",
     "days": "days",
+    "accept": "Accept",
+    "edit": "Edit",
+    "cancel": "Cancel",
 
     "OilChange": "Oil change",
     "OilFilterChange": "Oil filter change",

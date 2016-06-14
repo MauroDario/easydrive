@@ -1,9 +1,13 @@
 {
     "language": "es-ES",
     "languageStr": "Idioma",
+    
     "spa": "Español",
     "eng": "Inglés",
     "days": "días",
+    "accept": "Aceptar",
+    "edit": "Editar",
+    "cancel": "Cancelar",
 
     "OilChange": "Cambio de aceite",
     "OilFilterChange": "Cambio de filtro de aceite",

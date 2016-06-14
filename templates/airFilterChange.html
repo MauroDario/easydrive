@@ -1,31 +1,34 @@
 <ion-view title="{{translation.AirFilterChange}}" id="AirFilterChange" class=" ">
     <ion-content padding="true" class="has-header">
-        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
+        <div style="margin: 0px; line-height: 150px; text-align: center; background-color: rgb(232, 235, 239);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
         <div class="card text-center" style="margin-bottom: 0px;">
             <div class="item item-divider">
-                <label class="item-text-wrap">
-                    {{translation.AirFilterChangeQuest}}
-                </label>
+                <div class="item-text-wrap">
+                    <p>{{translation.AirFilterChangeQuest}}</p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col col-50 col-offset-25">
-                <div class="item-input">
-                    <label class="item-input-wrapper">
-                        <input type="number" class="text-right" ng-model="daysInput.value">
-                    </label>
-                    &nbsp;
-                    <label>
-                        {{translation.days}} &nbsp; &nbsp;
-                    </label>
+            <div class="item item-text-wrap" ng-show="editMode">
+                <ion-item class="range range-positive " id="oilChange-range1">
+                    <input type="range" min="0" max="700" step="50" ng-model="daysInput.value">
+                </ion-item>
+            </div>
+            <div class="item item-divider">
+                <div class="item-text-wrap">
+                    <p>{{daysInput.value}} {{translation.days}}</p>
                 </div>
             </div>
         </div>
-        <button class="button button-positive button-block" ng-click="save()">
-            Save
+        <button class="button button-balanced button-block" ng-click="editMode=true;" ng-hide="editMode">
+            {{translation.edit}}
         </button>
-        
+        <button class="button button-positive button-block" ng-click="save(); editMode=false;" ng-show="editMode">
+            {{translation.accept}}
+        </button>
+        <button class="button button-positive button-block" ng-click="editMode=false;" ng-show="editMode">
+            {{translation.cancel}}
+        </button>
+
     </ion-content>
 </ion-view>

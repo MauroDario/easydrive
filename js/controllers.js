@@ -62,7 +62,12 @@ angular.module('app.controllers', ['app.service'])
 })
 
 .controller('airFilterChangeCtrl', function ($scope, sqlService) {
-    sqlService.select("oilChangeCtrl").then(function (data) {
+    
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición
+    $scope.editMode = false;
+    
+    // Se carga el valor de días de la base
+    sqlService.select("airFilterChangeCtrl").then(function (data) {
         $scope.daysInput = {
             value: 0
         };
@@ -78,6 +83,7 @@ angular.module('app.controllers', ['app.service'])
         console.log(err);
     });
 
+    // Guardar valor de días en la base
     $scope.save = function () {
         sqlService.insertOrUpdate("airFilterChange", $scope.daysInput.value);
     }
