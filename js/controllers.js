@@ -36,32 +36,36 @@ angular.module('app.controllers', ['app.service'])
 })
 
 .controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification) {
-    sqlService.select("oilChangeCtrl").then(function (data) {
-        $scope.foo = {
-            days: 0
-        };
-        if (data.rows.length > 0) {
-            $scope.foo.days = data.rows.item(0).day_value;
-            console.log("se obtuvo " + $scope.foo.days);
-        } else {
-            console.log("else");
-            $scope.foo.days = 15;
-        }
-    }, function (err) {
-        console.log(err);
-    });
+
+    $scope.$on('$ionicView.enter', function () {
+        sqlService.select("oilChange").then(function (data) {
+            $scope.foo = {
+                days: 1
+            };
+            if (data.rows.length > 0) {
+                $scope.foo.days = data.rows.item(0).day_value;
+                console.log("se obtuvo " + $scope.foo.days);
+            } else {
+                console.log("else");
+                $scope.foo.days = 15;
+            }
+            console.log(data);
+        }, function (err) {
+            console.log(err);
+        });
+    })
+
+
 
     $scope.update = function () {
-        var now= new Date().getTime(),
-        _5_sec_from_now = new Date(now + 5*1000);
         console.log("updateto: " + $scope.foo.days);
-        sqlService.insertOrUpdate("oilChange", $scope.foo.days);
-        cordova.plugins.notification.local.schedule({
+        sqlService.insertOrUpdate("oilChange", 1);
+        /*cordova.plugins.notification.local.schedule({
             text: "Delayed Notification",
             at: _5_sec_from_now,
             led: "FF0000",
             sound: null
-        });
+        });*/
     };
 })
 
@@ -70,10 +74,10 @@ angular.module('app.controllers', ['app.service'])
 })
 
 .controller('airFilterChangeCtrl', function ($scope, sqlService) {
-    
+
     // Se inicializa la variable que permite alternan entre pantalla visualización/edición
     $scope.editMode = false;
-    
+
     // Se carga el valor de días de la base
     sqlService.select("airFilterChangeCtrl").then(function (data) {
         $scope.daysInput = {
