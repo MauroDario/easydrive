@@ -1,13 +1,24 @@
 {
     "language": "en-US",
     "languageStr": "Language",
-    
+
     "spa": "Spanish",
     "eng": "English",
     "days": "days",
     "accept": "Accept",
     "edit": "Edit",
     "cancel": "Cancel",
+    "successSave": "Successful Save!",
+    "successSaveMsg": "The value was saved successfully",
+    "errorSave": "Error!",
+    "errorSaveMsg": "The requested operation could not be completed",
+    "askToRebootCount": "Attention!",
+    "askToRebootCountMsg": "Do you want to reset the counter of days?",
+    "showRemainDaysMsg": "Remaining days to the next check: ",
+    "showRemainDays": "Remaining days",
+    "showRemainDaysBtn": "Show remaining days",
+    "yes": "Yes",
+    "no": "No",
 
     "OilChange": "Oil change",
     "OilFilterChange": "Oil filter change",
@@ -21,7 +32,7 @@
     "Brakepadschange": "Brake pads change",
     "Brakefluidchange": "Brake fluid change",
     "Timingbeltchange": "Timing belt change",
-    
+
     "OilChangeQuest": "How often do you want to make a oil change?",
     "OilFilterChangeQuest": "How often do you want to make a oil filter change?",
     "AirFilterChangeQuest": "How often do you want to make a air filter change?",

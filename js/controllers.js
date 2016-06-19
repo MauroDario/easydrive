@@ -36,7 +36,6 @@ angular.module('app.controllers', ['app.service'])
 })
 
 .controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification) {
-
     $scope.$on('$ionicView.enter', function () {
         sqlService.select("oilChange").then(function (data) {
             $scope.foo = {
@@ -55,8 +54,6 @@ angular.module('app.controllers', ['app.service'])
         });
     })
 
-
-
     $scope.update = function () {
         console.log("updateto: " + $scope.foo.days);
         sqlService.insertOrUpdate("oilChange", $scope.foo.days);
@@ -69,74 +66,364 @@ angular.module('app.controllers', ['app.service'])
     };
 })
 
-.controller('oilFilterChangeCtrl', function ($scope) {
+.controller('oilFilterChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
 
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("oilFilterChange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
+
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("oilFilterChange", $scope.daysInput.value);
+    }
+    
+    $scope.showRemainingDays = function () {
+        sqlService.select("oilFilterChange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('airFilterChangeCtrl', function ($scope, sqlService) {
-
-    // Se inicializa la variable que permite alternan entre pantalla visualización/edición
-    $scope.editMode = false;
-
-    // Se carga el valor de días de la base
-    sqlService.select("airFilterChangeCtrl").then(function (data) {
-        $scope.daysInput = {
-            value: 0
-        };
-
+.controller('airFilterChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("airFilterChange").then(function (data) {
         if (data.rows.length > 0) {
-            $scope.daysInput.value = data.rows.item(0).day_value;
-            console.log("se obtuvo " + $scope.daysInput.value);
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
         } else {
-            console.log("else");
-            $scope.daysInput.value = 100;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: 100
+            };
         }
-    }, function (err) {
-        console.log(err);
     });
 
     // Guardar valor de días en la base
     $scope.save = function () {
         sqlService.insertOrUpdate("airFilterChange", $scope.daysInput.value);
     }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("airFilterChange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('cabinFilterChangeCtrl', function ($scope) {
+.controller('cabinFilterChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("cabinFilterChange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("cabinFilterChange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("cabinFilterChange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('plugsChangeCtrl', function ($scope) {
+.controller('plugsChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("plugsChange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("plugsChange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("plugsChange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('tiresChangeCtrl', function ($scope) {
+.controller('tiresChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("tiresChange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("tiresChange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("tiresChange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('dampersChangeCtrl', function ($scope) {
+.controller('dampersChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("dampersChange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("dampersChange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("dampersChange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('carWorkshopReviewCtrl', function ($scope) {
+.controller('carWorkshopReviewCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("carWorkshopReview").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("carWorkshopReview", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("carWorkshopReview").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('coolantchangeCtrl', function ($scope) {
+.controller('coolantchangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("coolantchange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("coolantchange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("coolantchange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('brakepadschangeCtrl', function ($scope) {
+.controller('brakepadschangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("brakepadschange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("brakepadschange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("brakepadschange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('brakefluidchangeCtrl', function ($scope) {
+.controller('brakefluidchangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("brakefluidchange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("brakefluidchange", $scope.daysInput.value);
+    }
+
+    $scope.showRemainingDays = function () {
+        sqlService.select("brakefluidchange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })
 
-.controller('timingbeltchangeCtrl', function ($scope) {
+.controller('timingbeltchangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
+    sqlService.select("timingbeltchange").then(function (data) {
+        if (data.rows.length > 0) {
+            $scope.firstTime = false;
+            $scope.editMode = false;
+            $scope.daysInput = {
+                value: data.rows[0].day_value
+            };
+        } else {
+            $scope.firstTime = true;
+            $scope.editMode = true;
+            $scope.daysInput = {
+                value: 100
+            };
+        }
+    });
 
-})
+    // Guardar valor de días en la base
+    $scope.save = function () {
+        sqlService.insertOrUpdate("timingbeltchange", $scope.daysInput.value);
+    }
 
-.controller('oilFilterChange2Ctrl', function ($scope) {
-
+    $scope.showRemainingDays = function () {
+        sqlService.select("timingbeltchange").then(function (data) {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.translation.showRemainDays,
+                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+            });
+        });
+    }
 })

@@ -1,13 +1,24 @@
 {
     "language": "es-ES",
     "languageStr": "Idioma",
-    
+
     "spa": "Español",
     "eng": "Inglés",
     "days": "días",
     "accept": "Aceptar",
     "edit": "Editar",
     "cancel": "Cancelar",
+    "successSave": "Guardado exitoso!",
+    "successSaveMsg": "El valor ha sido guardado exitosamente",
+    "errorSave": "Error!",
+    "errorSaveMsg": "No se pudo completar la solicitud.",
+    "askToRebootCount": "Atención!",
+    "askToRebootCountMsg": "¿Desea reiniciar el contador de días?",
+    "showRemainDaysMsg": "Días restantes para el próximo control: ",
+    "showRemainDays": "Días restantes",
+    "showRemainDaysBtn": "Mostrar días restantes",
+    "yes": "Sí",
+    "no": "No",
 
     "OilChange": "Cambio de aceite",
     "oilChangeTextNotification": "Cambio de aceite minutos",
