@@ -98,7 +98,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("oilFilterChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -110,7 +110,7 @@ angular.module('app.controllers', ['app.service'])
         if (data.rows.length > 0) {
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.editMode = false;
@@ -129,7 +129,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("airFilterChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -142,7 +142,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -162,7 +162,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("cabinFilterChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -175,7 +175,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -195,7 +195,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("plugsChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -208,7 +208,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -228,7 +228,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("tiresChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -241,7 +241,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -261,7 +261,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("dampersChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -274,7 +274,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -294,7 +294,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("carWorkshopReview").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -307,7 +307,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -327,7 +327,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("coolantchange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -340,7 +340,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -360,7 +360,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("brakepadschange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -373,7 +373,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -393,7 +393,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("brakefluidchange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
@@ -406,7 +406,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             $scope.daysInput = {
-                value: data.rows[0].day_value
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;
@@ -426,7 +426,7 @@ angular.module('app.controllers', ['app.service'])
         sqlService.select("timingbeltchange").then(function (data) {
             var alertPopup = $ionicPopup.alert({
                 title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows[0].remaining_days
+                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
             });
         });
     }
