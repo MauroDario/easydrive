@@ -37,7 +37,7 @@ angular.module('app.controllers', ['app.service'])
 
 .controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification) {
     $scope.$on('$ionicView.enter', function () {
-        sqlService.select("oilChangeCtrl").then(function (data) {
+        sqlService.select("oilChange").then(function (data) {
             $scope.foo = {
                 days: 1
             };
@@ -52,7 +52,7 @@ angular.module('app.controllers', ['app.service'])
         }, function (err) {
             console.log(err);
         });
-    });
+    })
 
     $scope.update = function () {
         console.log("updateto: " + $scope.foo.days);
@@ -89,7 +89,7 @@ angular.module('app.controllers', ['app.service'])
     $scope.save = function () {
         sqlService.insertOrUpdate("oilFilterChange", $scope.daysInput.value);
     }
-
+    
     $scope.showRemainingDays = function () {
         sqlService.select("oilFilterChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({

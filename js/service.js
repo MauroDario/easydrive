@@ -1,5 +1,6 @@
 angular.module('app.service', ['ngResource'])
 
+//definir los ids cuando se esten creando los abms
 .constant('idsSchedule', {
     "oilChange": 1,
     "b": 2
@@ -145,11 +146,11 @@ angular.module('app.service', ['ngResource'])
                 self.insert(id, day_value);
             }
             localNotificationService.scheduleDays(idsSchedule[id], $rootScope.translation[id + "TextNotification"], day_value)
-        })
+        });
     };
-
 })
 
+//revisar el titulo solo esta seteando en contenido
 .service("localNotificationService", function () {
     this.scheduleDays = function (idForSchedule, text, days) {
         cordova.plugins.notification.local.schedule({
