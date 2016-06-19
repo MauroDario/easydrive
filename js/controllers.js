@@ -40,7 +40,7 @@ angular.module('app.controllers', ['app.service'])
     $scope.$on('$ionicView.enter', function () {
         sqlService.select("oilChange").then(function (data) {
             $scope.foo = {
-                days: 1
+                days: 5
             };
             if (data.rows.length > 0) {
                 $scope.foo.days = data.rows.item(0).day_value;
@@ -59,7 +59,7 @@ angular.module('app.controllers', ['app.service'])
 
     $scope.update = function () {
         console.log("updateto: " + $scope.foo.days);
-        sqlService.insertOrUpdate("oilChange", 1);
+        sqlService.insertOrUpdate("oilChange", $scope.foo.days);
         /*cordova.plugins.notification.local.schedule({
             text: "Delayed Notification",
             at: _5_sec_from_now,
