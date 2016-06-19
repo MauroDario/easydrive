@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, $ionicPopup) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, $ionicPopup,idsSchedule) {
 
     // Inicializo Combo de Lenguajes
     $scope.data = {
@@ -41,6 +41,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.foo = {
                 days: 5
             };
+                console.log(data);
             if (data.rows.length > 0) {
                 $scope.foo.days = data.rows.item(0).day_value;
                 console.log("se obtuvo " + $scope.foo.days);
@@ -56,7 +57,9 @@ angular.module('app.controllers', ['app.service'])
 
     $scope.update = function () {
         console.log("updateto: " + $scope.foo.days);
-        sqlService.insertOrUpdate("oilChange", $scope.foo.days);
+        sqlService.insertOrUpdate("oilChange", $scope.foo.days).then(function(data){            
+            localNotificationService.scheduleDays(idsSchedule[id], $rootScope.translation["oilChangeTextNotification"], $scope.foo.days)
+        });
         /*cordova.plugins.notification.local.schedule({
             text: "Delayed Notification",
             at: _5_sec_from_now,
@@ -73,8 +76,9 @@ angular.module('app.controllers', ['app.service'])
         if (data.rows.length > 0) {
             $scope.firstTime = false;
             $scope.editMode = false;
-            $scope.daysInput = {
-                value: data.rows[0].day_value
+            console.log(data);
+            $scope.daysInput = {                
+                value: data.rows.item(0).day_value
             };
         } else {
             $scope.firstTime = true;

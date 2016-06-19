@@ -141,12 +141,11 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
     self.insertOrUpdate = function (id, day_value) {
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
-                self.update(day_value, id);
+                return self.update(day_value, id);
             } else {
-                self.insert(id, day_value);
+                return self.insert(id, day_value);
             }
-            console.log("antes de notificar " + id);
-            localNotificationService.scheduleDays(idsSchedule[id], $rootScope.translation[id + "TextNotification"], day_value)
+            
         });
     };
 })
@@ -161,7 +160,8 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             id: idForSchedule,
             text: text,
             every: "minute",
-            firstAt: days
+            at: days,
+            autoClear:false,
         });
     };
 
