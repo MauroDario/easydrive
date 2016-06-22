@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, $ionicPopup,idsSchedule) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, $ionicPopup, idsSchedule) {
 
     // Inicializo Combo de Lenguajes
     $scope.data = {
@@ -35,39 +35,52 @@ angular.module('app.controllers', ['app.service'])
 
 })
 
-.controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification) {
-    $scope.$on('$ionicView.enter', function () {
-        sqlService.select("oilChange").then(function (data) {
-            $scope.foo = {
-                days: 5
-            };
-                console.log(data);
-            if (data.rows.length > 0) {
-                $scope.foo.days = data.rows.item(0).day_value;
-                console.log("se obtuvo " + $scope.foo.days);
-            } else {
-                console.log("else");
-                $scope.foo.days = 15;
-            }
-            console.log(data);
-        }, function (err) {
-            console.log(err);
-        });
-    })
-
-    $scope.update = function () {
-        console.log("updateto: " + $scope.foo.days);
-        sqlService.insertOrUpdate("oilChange", $scope.foo.days).then(function(data){            
-            localNotificationService.scheduleDays(idsSchedule[id], $rootScope.translation["oilChangeTextNotification"], $scope.foo.days)
-        });
-        /*cordova.plugins.notification.local.schedule({
-            text: "Delayed Notification",
-            at: _5_sec_from_now,
-            led: "FF0000",
-            sound: null
-        });*/
-    };
+.controller('testCtrl', function ($scope, sqlService, $cordovaLocalNotification, localNotificationService, idsSchedule, $rootScope) {
+    
 })
+
+.controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification, localNotificationService, idsSchedule, $rootScope) {
+        $scope.$on('$ionicView.enter', function () {
+            sqlService.select("oilChange").then(function (data) {
+                $scope.foo = {
+                    days: 5
+                };
+                console.log(data);
+                if (data.rows.length > 0) {
+                    $scope.foo.days = data.rows.item(0).day_value;
+                } else {
+
+                    $scope.foo.days = 15;
+                }
+                console.log(data);
+            }, function (err) {
+                console.log(err);
+            });
+        })
+
+        $scope.update = function () {
+            ionic.Platform.ready(function () {
+                console.log("updateto: " + $scope.foo.days);
+                sqlService.insertOrUpdate("oilChange", $scope.foo.days);
+
+                console.log("listo para notificar");
+                /*cordova.plugins.notification.local.cancel(1, function () {
+                    console.log("Notificacion 1 cancelada");
+                }, $scope);*/
+                cordova.plugins.notification.local.hasPermission(function (granted) {
+                    console.log('Permission has been granted: ' + granted);
+                });
+                localNotificationService.scheduleDays(idsSchedule["oilChange"], $rootScope.translation["oilChangeTextNotification"], $scope.foo.days)
+            });
+        };
+    })
+    /*cordova.plugins.notification.local.schedule({
+        text: "Delayed Notification",
+        at: _5_sec_from_now,
+        led: "FF0000",
+        sound: null
+    });*/
+
 
 .controller('oilFilterChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
 
@@ -77,7 +90,7 @@ angular.module('app.controllers', ['app.service'])
             $scope.firstTime = false;
             $scope.editMode = false;
             console.log(data);
-            $scope.daysInput = {                
+            $scope.daysInput = {
                 value: data.rows.item(0).day_value
             };
         } else {
@@ -93,7 +106,7 @@ angular.module('app.controllers', ['app.service'])
     $scope.save = function () {
         sqlService.insertOrUpdate("oilFilterChange", $scope.daysInput.value);
     }
-    
+
     $scope.showRemainingDays = function () {
         sqlService.select("oilFilterChange").then(function (data) {
             var alertPopup = $ionicPopup.alert({

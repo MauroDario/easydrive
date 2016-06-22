@@ -18,7 +18,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
 .service("sqlService", function ($cordovaSQLite, $ionicPopup, $rootScope, translationService, localNotificationService, idsSchedule) {
     var self = this;
-    
+
     self.execute = function (query, parameter) {
         if (parameter == null)
             parameter = [];
@@ -145,7 +145,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             } else {
                 return self.insert(id, day_value);
             }
-            
+
         });
     };
 })
@@ -156,13 +156,43 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         console.log("days: " + days);
         console.log("text: " + text);
         console.log("id: " + idForSchedule);
-        cordova.plugins.notification.local.schedule({
-            id: idForSchedule,
-            text: text,
-            every: "minute",
-            at: days,
-            autoClear:false,
+
+        cordova.plugins.notification.local.isPresent(idForSchedule, function (present) {
+            if (present) {
+                console.log("Presente");
+                cordova.plugins.notification.local.update({
+                    id: idForSchedule,
+                    text: text,
+                    every: "minute",
+                    at: days,
+                    autoClear: false,
+                }, function (aux) {
+                    console.log("callback de notificacion: ");
+                    console.log(aux);
+                }, this, {
+                    skipPermission: true
+                });
+            } else {
+                console.log("NO ESTA Presente")
+                cordova.plugins.notification.local.schedule({
+                    id: idForSchedule,
+                    text: text,
+                    every: "minute",
+                    at: days,
+                    autoClear: false,
+                }, function (aux) {
+                    console.log("callback de notificacion: ");
+                    console.log(aux);
+                }, this, {
+                    skipPermission: true
+                });
+            }
+
         });
+
+
+
+        cordova.plugins.notification.local.update
     };
 
     this.scheduleDate = function (idForSchedule, text, date) {
@@ -170,7 +200,6 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             id: idForSchedule,
             text: text,
             at: date
-
         });
     };
 });
