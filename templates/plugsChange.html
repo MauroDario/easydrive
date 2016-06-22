@@ -4,7 +4,7 @@
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
 
-        <button class="button button-balanced button-block" ng-click="showRemainingDays()" ng-hide="editMode">
+        <button class="button button-balanced button-block" ng-click="showRemainingDays('PlugsChange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}
         </button>
 
@@ -29,10 +29,10 @@
         <button class="button button-balanced button-block" ng-click="editMode=true;" ng-hide="editMode">
             {{translation.edit}}
         </button>
-        <button class="button button-positive button-block" ng-click="save(); editMode=false;" ng-show="editMode">
+        <button class="button button-positive button-block" ng-click="save('PlugsChange'); editMode=false;" ng-show="editMode">
             {{translation.accept}}
         </button>
-        <button class="button button-positive button-block" ng-click="editMode=false;" ng-show="!firstTime && editMode">
+        <button class="button button-positive button-block" ng-click="reset('PlugsChange'); editMode=false;" ng-show="!firstTime && editMode">
             {{translation.cancel}}
         </button>
 
