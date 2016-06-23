@@ -1,6 +1,6 @@
 angular.module('app.routes', [])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -8,13 +8,17 @@ angular.module('app.routes', [])
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-        .state('home', {
-        url: '/page1',
-        templateUrl: 'templates/home.html',
-        controller: 'homeCtrl'
+        .state('menu.home', {
+        url: '/home',
+        views: {
+            'side-menu21': {
+                templateUrl: 'templates/home.html',
+                controller: 'homeCtrl'
+            }
+        }
     })
 
-    .state('menu.oilChange', {
+        .state('menu.oilChange', {
         url: '/OilChange',
         views: {
             'side-menu21': {
@@ -24,7 +28,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.oilFilterChange', {
+        .state('menu.oilFilterChange', {
         url: '/OilFilterChange',
         views: {
             'side-menu21': {
@@ -34,7 +38,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.airFilterChange', {
+        .state('menu.airFilterChange', {
         url: '/AirFilterChange',
         views: {
             'side-menu21': {
@@ -44,7 +48,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.cabinFilterChange', {
+        .state('menu.cabinFilterChange', {
         url: '/CabinFilterChange',
         views: {
             'side-menu21': {
@@ -54,7 +58,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.plugsChange', {
+        .state('menu.plugsChange', {
         url: '/PlugsChange',
         views: {
             'side-menu21': {
@@ -64,7 +68,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.tiresChange', {
+        .state('menu.tiresChange', {
         url: '/TiresChange',
         views: {
             'side-menu21': {
@@ -74,7 +78,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.dampersChange', {
+        .state('menu.dampersChange', {
         url: '/DampersChange',
         views: {
             'side-menu21': {
@@ -84,7 +88,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.carWorkshopReview', {
+        .state('menu.carWorkshopReview', {
         url: '/CarWorkshopReview',
         views: {
             'side-menu21': {
@@ -94,7 +98,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.coolantchange', {
+        .state('menu.coolantchange', {
         url: '/Coolantchange',
         views: {
             'side-menu21': {
@@ -104,7 +108,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.brakepadschange', {
+        .state('menu.brakepadschange', {
         url: '/Brakepadschange',
         views: {
             'side-menu21': {
@@ -114,7 +118,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.brakefluidchange', {
+        .state('menu.brakefluidchange', {
         url: '/Brakefluidchange',
         views: {
             'side-menu21': {
@@ -124,7 +128,7 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu.timingbeltchange', {
+        .state('menu.timingbeltchange', {
         url: '/Timingbeltchange',
         views: {
             'side-menu21': {
@@ -134,12 +138,12 @@ angular.module('app.routes', [])
         }
     })
 
-    .state('menu', {
+        .state('menu', {
         url: '/side-menu21',
         templateUrl: 'templates/menu.html',
         abstract: true
     })
 
-    $urlRouterProvider.otherwise('/page1')
+    $urlRouterProvider.otherwise('/side-menu21/home')
 
 });
