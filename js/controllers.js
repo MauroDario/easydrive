@@ -2,7 +2,7 @@ angular.module('app.controllers', ['app.service'])
 
 .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup) {
 
-    /* LENGUAJE */
+    // Lenguaje start
 
     // Inicializo Combo de Lenguajes
     $scope.data = {
@@ -23,9 +23,35 @@ angular.module('app.controllers', ['app.service'])
         $rootScope.translate($scope.data.ddlLanguage);
     }
 
-    /* FIN LENGUAJE */
+    //close
 
-    /* ABMs */
+    // Vencimiento start
+
+    $scope.diccVenc = new Array();
+
+    sqlService.selectAll().then(function (data) {
+        for (i = 0; i < data.rows.length; i++) {
+            var reg = data.rows.item(i);
+
+            var save_date = new Date(reg.save_date);
+            save_date.setDate(save_date.getDate() + 1);
+            var today = new Date();
+
+            var timeDiff = Math.abs(today.getTime() - save_date.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (diffDays >= reg.day_value)
+                $scope.diccVenc.push(reg.id);
+        }
+    });
+
+    $scope.isOverDue = function(id) {
+        return $scope.diccVenc.some(elem => elem == id.toUpperCase());
+    };
+
+    //close
+
+    // ABM start
 
     // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
     $scope.loadABM = function (id) {
@@ -38,12 +64,6 @@ angular.module('app.controllers', ['app.service'])
                 $scope.daysInput = {
                     value: reg.day_value
                 };
-
-                // Se chequea si está vencido el control
-                if (reg.remaining_days < 1)
-                    $scope.isOverdue = true;
-                else
-                    $scope.isOverdue = false;
 
             } else {
                 $scope.firstTime = true;
@@ -61,7 +81,7 @@ angular.module('app.controllers', ['app.service'])
         $scope.firstTime = false;
         sqlService.insertOrUpdate(id, $scope.daysInput.value);
     };
-    
+
     // Mostrar popup con el valor de los días restantes
     $scope.showRemainingDays = function (id) {
         sqlService.select(id).then(function (data) {
@@ -81,10 +101,11 @@ angular.module('app.controllers', ['app.service'])
         });
     }
 
-    /* FIN ABMs */
+    //close
 
 })
 
+// ABM Controllers start
 .controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification) {
     $scope.$on('$ionicView.enter', function () {
         sqlService.select("oilChange").then(function (data) {
@@ -162,3 +183,5 @@ angular.module('app.controllers', ['app.service'])
 .controller('timingbeltchangeCtrl', function ($scope) {
     $scope.loadABM("timingbeltchange");
 })
+
+//

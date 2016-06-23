@@ -27,8 +27,9 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
     self.insert = function (id, day_value) {
         id = id.toUpperCase();
-        var query = "INSERT INTO abm_values (id, day_value, remaining_days) VALUES (?,?,?)";
-        $cordovaSQLite.execute(db, query, [id, day_value, day_value]).then(function (res) {
+        var query = "INSERT INTO abm_values (id, day_value, remaining_days, save_date) VALUES (?,?,?,?)";
+        var today = new Date().toJSON().slice(0,10);
+        $cordovaSQLite.execute(db, query, [id, day_value, day_value, today]).then(function (res) {
                 console.log("INSERT ID -> " + res.insertId);
 
                 var alertPopup = $ionicPopup.alert({
@@ -60,8 +61,13 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             });
     };
 
+    self.selectAll = function() {
+        var query = "SELECT * FROM abm_values";
+        return $cordovaSQLite.execute(db, query);
+    }
+
     self.select = function (id) {
-        var query = "SELECT id, day_value, remaining_days FROM abm_values WHERE UPPER(id) = UPPER(?)";
+        var query = "SELECT id, day_value, remaining_days, save_date FROM abm_values WHERE UPPER(id) = UPPER(?)";
         return $cordovaSQLite.execute(db, query, [id]);
     };
 
@@ -95,8 +101,9 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         confirmPopup.then(function (res) {
             if (res) {
                 // Se desea reiniciar el contador
-                var query = "UPDATE abm_values SET day_value = ?, remaining_days = ? WHERE UPPER(id) = UPPER(?)";
-                $cordovaSQLite.execute(db, query, [day_value, day_value, id]).then(function (res) {
+                var query = "UPDATE abm_values SET day_value = ?, remaining_days = ?, save_date = ? WHERE UPPER(id) = UPPER(?)";
+                var today = new Date().toJSON().slice(0,10);
+                $cordovaSQLite.execute(db, query, [day_value, day_value, id, today]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
                         template: $rootScope.translation.successSaveMsg
