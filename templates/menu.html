@@ -24,29 +24,32 @@
             </form>
             <form id="menu-form4" class="list">
                 <ion-list id="menu-list3" style="font-size: 50%;">
-                    <ion-item class="item-icon-left positive" id="menu-list-item10" ui-sref="menu.oilChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.OilChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item13" ui-sref="menu.oilFilterChange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('OilChange'),  'assertive':isOverDue('OilChange')}" id="menu-list-item10" ui-sref="menu.oilChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.OilChange}}<span class="badge badge-assertive">0</span></ion-item>
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('OilFilterChange'),  'assertive':isOverDue('OilFilterChange')}" id="menu-list-item13" ui-sref="menu.oilFilterChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.OilFilterChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item11" ui-sref="menu.airFilterChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.AirFilterChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item12" ui-sref="menu.cabinFilterChange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('AirFilterChange'),  'assertive':isOverDue('AirFilterChange')}" id="menu-list-item11" ui-sref="menu.airFilterChange" menu-close="">
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.AirFilterChange}}
+                        <span ng-class="($scope.dicDiffDays['AIRFILTERCHANGE']>0)? 'badge badge-balanced': 'badge badge-balanced'">{{dicDiffDays["AIRFILTERCHANGE"] | modulo}}</span>
+                        <!--<span class="badge badge-balanced">{{dicDiffDays["AIRFILTERCHANGE"] | modulo}}</span>-->
+                        </ion-item>
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('CabinFilterChange'),  'assertive':isOverDue('CabinFilterChange')}" id="menu-list-item12" ui-sref="menu.cabinFilterChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.CabinFilterChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item27" ui-sref="menu.plugsChange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('PlugsChange'),  'assertive':isOverDue('PlugsChange')}" id="menu-list-item27" ui-sref="menu.plugsChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.PlugsChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item28" ui-sref="menu.tiresChange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('TiresChange'),  'assertive':isOverDue('TiresChange')}" id="menu-list-item28" ui-sref="menu.tiresChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.TiresChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item29" ui-sref="menu.dampersChange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('DampersChange'),  'assertive':isOverDue('DampersChange')}" id="menu-list-item29" ui-sref="menu.dampersChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.DampersChange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item30" ui-sref="menu.carWorkshopReview" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('CarWorkshopReview'),  'assertive':isOverDue('CarWorkshopReview')}" id="menu-list-item30" ui-sref="menu.carWorkshopReview" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.CarWorkshopReview}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item31" ui-sref="menu.coolantchange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Coolantchange'),  'assertive':isOverDue('Coolantchange')}" id="menu-list-item31" ui-sref="menu.coolantchange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.Coolantchange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item32" ui-sref="menu.brakepadschange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Brakepadschange'),  'assertive':isOverDue('Brakepadschange')}" id="menu-list-item32" ui-sref="menu.brakepadschange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.Brakepadschange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item33" ui-sref="menu.brakefluidchange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Brakefluidchange'),  'assertive':isOverDue('Brakefluidchange')}" id="menu-list-item33" ui-sref="menu.brakefluidchange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.Brakefluidchange}}</ion-item>
-                    <ion-item class="item-icon-left positive  " id="menu-list-item34" ui-sref="menu.timingbeltchange" menu-close="">
+                    <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Timingbeltchange'),  'assertive':isOverDue('Timingbeltchange')}" id="menu-list-item34" ui-sref="menu.timingbeltchange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.Timingbeltchange}}</ion-item>
                 </ion-list>
             </form>
