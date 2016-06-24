@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory) {
 
     // Lenguaje start
 
@@ -12,6 +12,7 @@ angular.module('app.controllers', ['app.service'])
     // Defino función de cambio de Lenguaje
     $rootScope.translate = function (language) {
         $rootScope.selectedLanguage = language;
+         $ionicHistory.clearCache();
         translationService.getTranslation($rootScope, $rootScope.selectedLanguage);
     };
 
