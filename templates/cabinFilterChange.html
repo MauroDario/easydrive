@@ -32,7 +32,7 @@
         <button class="button button-positive button-block" ng-click="save('cabinFilterChange'); editMode=false;" ng-show="editMode">
             {{translation.accept}}
         </button>
-        <button class="button button-positive button-block" ng-click="reset('cabinFilterChange'); editMode=false;" ng-show="editMode">
+        <button class="button button-positive button-block" ng-click="reset('cabinFilterChange'); editMode=false;" ng-show="!firstTime && editMode">
             {{translation.cancel}}
         </button>
 

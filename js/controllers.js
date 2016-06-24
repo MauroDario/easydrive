@@ -45,7 +45,7 @@ angular.module('app.controllers', ['app.service'])
         }
     });
 
-    $scope.isOverDue = function(id) {
+    $scope.isOverDue = function (id) {
         return $scope.diccVenc.some(elem => elem == id.toUpperCase());
     };
 
@@ -141,47 +141,70 @@ angular.module('app.controllers', ['app.service'])
 })
 
 .controller('oilFilterChangeCtrl', function ($scope) {
-    $scope.loadABM("oilFilterChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("oilFilterChange");
+    });
+
 })
 
 .controller('airFilterChangeCtrl', function ($scope) {
-    $scope.loadABM("airFilterChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("airFilterChange");
+    });
 })
 
 .controller('cabinFilterChangeCtrl', function ($scope) {
-    $scope.loadABM("cabinFilterChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("cabinFilterChange");
+    });
 })
 
 .controller('plugsChangeCtrl', function ($scope) {
-    $scope.loadABM("plugsChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("plugsChange");
+    });
 })
 
 .controller('tiresChangeCtrl', function ($scope) {
-    $scope.loadABM("tiresChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("tiresChange");
+    });
 })
 
 .controller('dampersChangeCtrl', function ($scope) {
-    $scope.loadABM("dampersChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("dampersChange");
+    });
 })
 
 .controller('carWorkshopReviewCtrl', function ($scope) {
-    $scope.loadABM("carWorkshopReview");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("carWorkshopReview");
+    });
 })
 
 .controller('coolantchangeCtrl', function ($scope) {
-    $scope.loadABM("coolantchange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("coolantchange");
+    });
 })
 
 .controller('brakepadschangeCtrl', function ($scope) {
-    $scope.loadABM("brakepadschange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("brakepadschange");
+    });
 })
 
 .controller('brakefluidchangeCtrl', function ($scope) {
-    $scope.loadABM("brakefluidchange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("brakefluidchange");
+    });
 })
 
 .controller('timingbeltchangeCtrl', function ($scope) {
-    $scope.loadABM("timingbeltchange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("timingbeltchange");
+    });
 })
 
 //
