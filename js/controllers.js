@@ -1,7 +1,7 @@
 angular.module('app.controllers', ['app.service'])
 
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService) {
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, DateService) {
 
     // Lenguaje start
 
@@ -13,6 +13,7 @@ angular.module('app.controllers', ['app.service'])
     // Defino función de cambio de Lenguaje
     $rootScope.translate = function (language) {
         $rootScope.selectedLanguage = language;
+        $ionicHistory.clearCache();
         translationService.getTranslation($rootScope, $rootScope.selectedLanguage);
     };
 
@@ -42,7 +43,7 @@ angular.module('app.controllers', ['app.service'])
             var timeDiff = Math.abs(today.getTime() - save_date.getTime());
             var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date,reg.day_value),today);
+            $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
 
             if (diffDays >= reg.day_value)
                 $scope.diccVenc.push(reg.id);
@@ -102,123 +103,86 @@ angular.module('app.controllers', ['app.service'])
 
     // Si cancela, el rangeBar se resetea!
     $scope.reset = function (id) {
-        sqlService.select(id).then(function (data) {
-            $scope.daysInput = {
-                value: data.rows.item(0).day_value
-            };
-        });
-    }
-
-    //close
-
+            sqlService.select(id).then(function (data) {
+                $scope.daysInput = {
+                    value: data.rows.item(0).day_value
+                };
+            });
+        }
+        //close
 })
 
 // ABM Controllers start
 .controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification, localNotificationService, idsSchedule, $rootScope) {
-    $scope.$on('$ionicView.enter', function () {
-        sqlService.select("oilChange").then(function (data) {
-            $scope.foo = {
-                days: 5
-            };
-            console.log(data);
-            if (data.rows.length > 0) {
-                $scope.foo.days = data.rows.item(0).day_value;
-            } else {
-
-                $scope.foo.days = 15;
-            }
-            console.log(data);
-        }, function (err) {
-            console.log(err);
-        });
-    })
-
-    $scope.update = function () {
-        ionic.Platform.ready(function () {
-            sqlService.insertOrUpdate("oilChange", $scope.foo.days);
-            var date = new Date();
-            date = date.setDate(date.getDate() + $scope.foo.days);
-            localNotificationService.scheduleDays(idsSchedule["oilChange"], $rootScope.translation["oilChangeTextNotification"], date);
-        });
-    };
-
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("oilChange");
+    });
 })
 
-
-.controller('oilFilterChangeCtrl', function ($scope, $rootScope, sqlService, $ionicPopup) {
-
-    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
-    sqlService.select("oilFilterChange").then(function (data) {
-        if (data.rows.length > 0) {
-            $scope.firstTime = false;
-            $scope.editMode = false;
-            console.log(data);
-            $scope.daysInput = {
-                value: data.rows.item(0).day_value
-            };
-        } else {
-            $scope.firstTime = true;
-            $scope.editMode = true;
-            $scope.daysInput = {
-                value: 100
-            };
-        }
+.controller('oilFilterChangeCtrl', function ($scope) {
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("oilFilterChange");
     });
-
-    // Guardar valor de días en la base
-    $scope.save = function () {
-        sqlService.insertOrUpdate("oilFilterChange", $scope.daysInput.value);
-    }
-
-    $scope.showRemainingDays = function () {
-        sqlService.select("oilFilterChange").then(function (data) {
-            var alertPopup = $ionicPopup.alert({
-                title: $rootScope.translation.showRemainDays,
-                template: $rootScope.translation.showRemainDaysMsg + data.rows.item(0).remaining_days
-            });
-        });
-    }
-
 })
 
 .controller('airFilterChangeCtrl', function ($scope) {
-    $scope.loadABM("airFilterChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("airFilterChange");
+    });
 })
 
 .controller('cabinFilterChangeCtrl', function ($scope) {
-    $scope.loadABM("cabinFilterChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("cabinFilterChange");
+    });
 })
 
 .controller('plugsChangeCtrl', function ($scope) {
-    $scope.loadABM("plugsChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("plugsChange");
+    });
 })
 
 .controller('tiresChangeCtrl', function ($scope) {
-    $scope.loadABM("tiresChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("tiresChange");
+    });
 })
 
 .controller('dampersChangeCtrl', function ($scope) {
-    $scope.loadABM("dampersChange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("dampersChange");
+    });
 })
 
 .controller('carWorkshopReviewCtrl', function ($scope) {
-    $scope.loadABM("carWorkshopReview");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("carWorkshopReview");
+    });
 })
 
 .controller('coolantchangeCtrl', function ($scope) {
-    $scope.loadABM("coolantchange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("coolantchange");
+    });
 })
 
 .controller('brakepadschangeCtrl', function ($scope) {
-    $scope.loadABM("brakepadschange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("brakepadschange");
+    });
 })
 
 .controller('brakefluidchangeCtrl', function ($scope) {
-    $scope.loadABM("brakefluidchange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("brakefluidchange");
+    });
 })
 
 .controller('timingbeltchangeCtrl', function ($scope) {
-    $scope.loadABM("timingbeltchange");
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.loadABM("timingbeltchange");
+    });
 })
 
 //

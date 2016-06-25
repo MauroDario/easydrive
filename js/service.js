@@ -16,7 +16,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 //definir los ids cuando se esten creando los abms
 .constant('idsSchedule', {
     "oilChange": 1,
-    "b": 2
+
 })
 
 .service('DateService', function () {
@@ -58,7 +58,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         var query = "INSERT INTO abm_values (id, day_value, remaining_days, save_date) VALUES (?,?,?,?)";
         var today = new Date().toJSON().slice(0, 10);
         $cordovaSQLite.execute(db, query, [id, day_value, day_value, today]).then(function (res) {
-                console.log("INSERT ID -> " + res.insertId);
+                console.log("INSERT ID -> " + id);
 
                 var alertPopup = $ionicPopup.alert({
                     title: $rootScope.translation.successSave,
@@ -91,6 +91,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
     self.selectAll = function () {
         var query = "SELECT * FROM abm_values";
+        console.log(db);
         return $cordovaSQLite.execute(db, query);
     }
 
@@ -130,8 +131,8 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             if (res) {
                 // Se desea reiniciar el contador
                 var query = "UPDATE abm_values SET day_value = ?, remaining_days = ?, save_date = ? WHERE UPPER(id) = UPPER(?)";
-                var today = new Date().toJSON().slice(0, 10);
-                $cordovaSQLite.execute(db, query, [day_value, day_value, id, today]).then(function (res) {
+                var today = new Date().toJSON().slice(0,10);
+                $cordovaSQLite.execute(db, query, [day_value, day_value, today, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
                         template: $rootScope.translation.successSaveMsg

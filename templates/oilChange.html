@@ -1,25 +1,42 @@
 <ion-view title="OilChange" id="page2" class=" ">
-  <ion-content padding="true" class="has-header">
-    <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
-      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-    </div>
-    <form id="oilChange-form5" class="list " ng-submit="update()">
-      <div>
-        <div class="text-center">
-          <p>¿Cada cuanto desea controlar el cambio de aceite?
-          </p>
+ 
+    <ion-content padding="true" class="has-header">
+        <div style="margin: 0px; line-height: 150px; text-align: center; background-color: rgb(232, 235, 239);">
+            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
-        <div class="text-center">
-          <p>{{foo.days}}
-          </p>
+
+        <button class="button button-balanced button-block" ng-click="showRemainingDays('PlugsChange')" ng-hide="editMode">
+            {{translation.showRemainDaysBtn}}
+        </button>
+
+        <div class="card text-center" style="margin-bottom: 0px;">
+            <div class="item item-divider">
+                <div class="item-text-wrap">
+                    <p>{{translation.OilChange}}</p>
+                </div>
+            </div>
+            <div class="item item-text-wrap" ng-show="editMode">
+                <ion-item class="range range-positive " id="oilChange-range1">
+                    <input type="range" min="0" max="700" step="50" ng-model="daysInput.value">
+                </ion-item>
+            </div>
+            <div class="item item-divider">
+                <div class="item-text-wrap">
+                    <p>{{daysInput.value}} {{translation.days}}</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <ion-item class="range range-positive " id="oilChange-range1">
-        <input type="range"  min="0" max="30" ng-model="foo.days">
-      </ion-item>
-      <ion-item class="" id="submitBtn">
-        <input type="submit" value="actualizar">
-      </ion-item>
-    </form>
-  </ion-content>
+
+        <button class="button button-balanced button-block" ng-click="editMode=true;" ng-hide="editMode">
+            {{translation.edit}}
+        </button>
+        <button class="button button-positive button-block" ng-click="save('PlugsChange'); editMode=false;" ng-show="editMode">
+            {{translation.accept}}
+        </button>
+        <button class="button button-positive button-block" ng-click="reset('PlugsChange'); editMode=false;" ng-show="!firstTime && editMode">
+            {{translation.cancel}}
+        </button>
+
+    </ion-content>
 </ion-view>
+
