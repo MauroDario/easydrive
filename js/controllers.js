@@ -29,26 +29,29 @@ angular.module('app.controllers', ['app.service'])
 
     // Vencimiento start
 
-    $scope.diccVenc = new Array();
-    $scope.dicDiffDays = {};
+    if (db != null) {
 
-    sqlService.selectAll().then(function (data) {
-        for (i = 0; i < data.rows.length; i++) {
-            var reg = data.rows.item(i);
+        $scope.diccVenc = new Array();
+        $scope.dicDiffDays = {};
 
-            var save_date = new Date(reg.save_date);
-            save_date.setDate(save_date.getDate() + 1);
-            var today = new Date();
+        sqlService.selectAll().then(function (data) {
+            for (i = 0; i < data.rows.length; i++) {
+                var reg = data.rows.item(i);
 
-            var timeDiff = Math.abs(today.getTime() - save_date.getTime());
-            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                var save_date = new Date(reg.save_date);
+                save_date.setDate(save_date.getDate() + 1);
+                var today = new Date();
 
-            $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
+                var timeDiff = Math.abs(today.getTime() - save_date.getTime());
+                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            if (diffDays >= reg.day_value)
-                $scope.diccVenc.push(reg.id);
-        }
-    });
+                $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
+
+                if (diffDays >= reg.day_value)
+                    $scope.diccVenc.push(reg.id);
+            }
+        });
+    }
 
     $scope.isOverDue = function (id) {
         return $scope.diccVenc.some(elem => elem == id.toUpperCase());
