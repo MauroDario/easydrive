@@ -1,8 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
 .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService) {
-
-
     // Lenguaje start
 
     // Inicializo Combo de Lenguajes
@@ -43,7 +41,7 @@ angular.module('app.controllers', ['app.service'])
             var timeDiff = Math.abs(today.getTime() - save_date.getTime());
             var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
+            $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);            
 
             if (diffDays >= reg.day_value)
                 $scope.diccVenc.push(reg.id);
@@ -108,14 +106,24 @@ angular.module('app.controllers', ['app.service'])
                     value: data.rows.item(0).day_value
                 };
             });
-        }
+        };
         //close
+    $scope.$on('$stateChangeSuccess', function () {
+        sqlService.selectAll().then(function (data) {
+            for (i = 0; i < data.rows.length; i++) {
+                var reg = data.rows.item(i);
+                var save_date = new Date(reg.save_date);
+                $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(save_date, reg.day_value), new Date());
+                console.log("ID )
+            }
+        });
+    });
 })
 
 // ABM Controllers start
 .controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification, localNotificationService, idsSchedule, $rootScope) {
     $scope.$on('$stateChangeSuccess', function () {
-        $scope.loadABM("oilChange");
+        $scope.loadABM("oilChange");         
     });
 })
 
