@@ -2,11 +2,10 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
 .filter('modulo', function () {
     return function (number) {
-        
+
         if (isNaN(number)) {
             return number;
         } else {
-
             if (number < 0)
                 return number * (-1);
             else return number;
@@ -18,6 +17,21 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 .constant('idsSchedule', {
     "oilChange": 1,
     "b": 2
+})
+
+.service('DateService', function () {
+    this.diffDates = function (firstDate, secondDate) {
+        var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+        var utc1 = Date.UTC(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate());
+        var utc2 = Date.UTC(secondDate.getFullYear(), secondDate.getMonth(), secondDate.getDate());
+        return Math.floor((utc1-utc2) / _MS_PER_DAY);
+    };
+
+    this.addDays = function (date, days) {
+        var aux= new Date(date);
+        aux.setDate(aux.getDate() + days);
+        return aux;
+    }
 })
 
 .service('translationService', function ($resource) {

@@ -25,32 +25,53 @@
             <form id="menu-form4" class="list">
                 <ion-list id="menu-list3" style="font-size: 50%;">
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('OilChange'),  'assertive':isOverDue('OilChange')}" id="menu-list-item10" ui-sref="menu.oilChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.OilChange}}<span class="badge badge-assertive">0</span></ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.OilChange}}
+                        <span ng-class="greatThat('OILCHANGE')? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["AIRFILTERCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('OilFilterChange'),  'assertive':isOverDue('OilFilterChange')}" id="menu-list-item13" ui-sref="menu.oilFilterChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.OilFilterChange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.OilFilterChange}}
+                        <span ng-class="greatThat('OILFILTERCHANGE')? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["OILFILTERCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('AirFilterChange'),  'assertive':isOverDue('AirFilterChange')}" id="menu-list-item11" ui-sref="menu.airFilterChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.AirFilterChange}}
-                        <span ng-class="($scope.dicDiffDays['AIRFILTERCHANGE']>0)? 'badge badge-balanced': 'badge badge-balanced'">{{dicDiffDays["AIRFILTERCHANGE"] | modulo}}</span>
-                        <!--<span class="badge badge-balanced">{{dicDiffDays["AIRFILTERCHANGE"] | modulo}}</span>-->
-                        </ion-item>
+                        <span ng-class="($scope.dicDiffDays['AIRFILTERCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["AIRFILTERCHANGE"]}}</span>
+                    </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('CabinFilterChange'),  'assertive':isOverDue('CabinFilterChange')}" id="menu-list-item12" ui-sref="menu.cabinFilterChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.CabinFilterChange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.CabinFilterChange}}
+                        <span ng-class="($scope.dicDiffDays['CABINFILTERCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["CABINFILTERCHANGE"]}}</span>
+                    </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('PlugsChange'),  'assertive':isOverDue('PlugsChange')}" id="menu-list-item27" ui-sref="menu.plugsChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.PlugsChange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.PlugsChange}}
+                        <span ng-class="($scope.dicDiffDays['PLUGSCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["PLUGSCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('TiresChange'),  'assertive':isOverDue('TiresChange')}" id="menu-list-item28" ui-sref="menu.tiresChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.TiresChange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.TiresChange}}
+                        <span ng-class="($scope.dicDiffDays['TIRESCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["TIRESCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('DampersChange'),  'assertive':isOverDue('DampersChange')}" id="menu-list-item29" ui-sref="menu.dampersChange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.DampersChange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.DampersChange}}
+                        <span ng-class="($scope.dicDiffDays['DAMPERSCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["DAMPERSCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('CarWorkshopReview'),  'assertive':isOverDue('CarWorkshopReview')}" id="menu-list-item30" ui-sref="menu.carWorkshopReview" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.CarWorkshopReview}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.CarWorkshopReview}}
+                        <span ng-class="($scope.dicDiffDays['CARWORKSHOPREVIEW']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["CARWORKSHOPREVIEW"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Coolantchange'),  'assertive':isOverDue('Coolantchange')}" id="menu-list-item31" ui-sref="menu.coolantchange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Coolantchange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Coolantchange}}
+                        <span ng-class="($scope.dicDiffDays['COOLANTCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["COOLANTCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Brakepadschange'),  'assertive':isOverDue('Brakepadschange')}" id="menu-list-item32" ui-sref="menu.brakepadschange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Brakepadschange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Brakepadschange}}
+                        <span ng-class="($scope.dicDiffDays['BRAKEPADSCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["BRAKEPADSCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Brakefluidchange'),  'assertive':isOverDue('Brakefluidchange')}" id="menu-list-item33" ui-sref="menu.brakefluidchange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Brakefluidchange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Brakefluidchange}}
+                        <span ng-class="($scope.dicDiffDays['BRAKEFLUIDCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["BRAKEFLUIDCHANGE"]}}</span>
+                        </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('Timingbeltchange'),  'assertive':isOverDue('Timingbeltchange')}" id="menu-list-item34" ui-sref="menu.timingbeltchange" menu-close="">
-                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Timingbeltchange}}</ion-item>
+                        <i class="icon ion-ios-arrow-forward"></i>{{translation.Timingbeltchange}}
+                        <span ng-class="($scope.dicDiffDays['TIRESCHANGE']>0)? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["TIRESCHANGE"]}}</span>
+                        </ion-item>
                 </ion-list>
             </form>
         </ion-content>

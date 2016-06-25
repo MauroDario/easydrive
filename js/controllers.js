@@ -1,7 +1,7 @@
 angular.module('app.controllers', ['app.service'])
 
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, DateService) {
 
     // Lenguaje start
 
@@ -42,9 +42,8 @@ angular.module('app.controllers', ['app.service'])
             var timeDiff = Math.abs(today.getTime() - save_date.getTime());
             var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            $scope.dicDiffDays[reg.id] = diffDays;
-            console.log(reg);
-            console.log(diffDays);
+            $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date,reg.day_value),today);
+
             if (diffDays >= reg.day_value)
                 $scope.diccVenc.push(reg.id);
         }
@@ -52,6 +51,10 @@ angular.module('app.controllers', ['app.service'])
 
     $scope.isOverDue = function (id) {
         return $scope.diccVenc.some(elem => elem == id.toUpperCase());
+    };
+
+    $scope.greatThat = function (id) {
+        return $scope.dicDiffDays[id] >= 0;
     };
 
     //close
