@@ -107,10 +107,11 @@ angular.module('app.controllers', ['app.service'])
 
     //close
 
+    // Al cambiar de página se actualizan los vectores de fechas.
     $scope.$on('$stateChangeSuccess', function () {
         $ionicPlatform.ready(function () {
             if (db != null) {
-
+                $scope.diccVenc = [];
                 sqlService.selectAll().then(function (data) {
                     for (i = 0; i < data.rows.length; i++) {
                         var reg = data.rows.item(i);

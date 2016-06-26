@@ -3,15 +3,15 @@
         <div style="margin: 0px; line-height: 150px; text-align: center; background-color: rgb(232, 235, 239);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
-        
-        <br>
+
         <div class="text-center" ng-show="isOverDue('CabinFilterChange')">
+            <br>
             <h4  style="color:red;"> {{translation.controlOverdueMsg}} </h4>
             <button class="button button-assertive button-block" ng-click="resetCount('CabinFilterChange')">
                 {{translation.resetCountBtn}}
             </button>
+            <br>
         </div>
-        <br>
 
         <button class="button button-balanced button-block" ng-click="showRemainingDays('cabinFilterChange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}
