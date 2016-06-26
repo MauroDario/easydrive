@@ -98,12 +98,12 @@ angular.module('app.controllers', ['app.service'])
             };
         });
     };
-    //close
-
+    
+    $scope.counter=0;
+    
     $scope.$on('$stateChangeSuccess', function () {
         $ionicPlatform.ready(function () {
             if (db != null) {
-
                 sqlService.selectAll().then(function (data) {
                     for (i = 0; i < data.rows.length; i++) {
                         var reg = data.rows.item(i);
@@ -116,9 +116,11 @@ angular.module('app.controllers', ['app.service'])
                         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
                         $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
-
+                        
                         if (diffDays >= reg.day_value)
                             $scope.diccVenc.push(reg.id);
+                            $scope.counter= $scope.counter++;
+                            
                     }
                 });
             }
