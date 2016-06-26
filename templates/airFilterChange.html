@@ -5,6 +5,9 @@
         </div>
 
         <h2 style="color:red;" ng-show="isOverDue('AirFilterChange')"> VENCIDO! </h2>
+        <button class="button button-assertive button-block" ng-click="resetCount('AirFilterChange')" ng-show="isOverDue('AirFilterChange')">
+            REINICIAR!
+        </button>
 
         <button class="button button-balanced button-block" ng-click="showRemainingDays('AirFilterChange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}

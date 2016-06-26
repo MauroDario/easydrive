@@ -31,7 +31,7 @@ angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'a
 
         }
 
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS abm_values (id text primary key, day_value integer, remaining_days integer, save_date text)");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS abm_values (id text primary key, day_value integer, save_date text)");
         
         var aux =$cordovaLocalNotification
      //schedule

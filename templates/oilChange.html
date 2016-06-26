@@ -4,7 +4,12 @@
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
 
-        <button class="button button-balanced button-block" ng-click="showRemainingDays('PlugsChange')" ng-hide="editMode">
+        <h2 style="color:red;" ng-show="isOverDue('OilChange')"> VENCIDO! </h2>
+        <button class="button button-assertive button-block" ng-click="resetCount('OilChange')" ng-show="isOverDue('OilChange')">
+            REINICIAR!
+        </button>
+
+        <button class="button button-balanced button-block" ng-click="showRemainingDays('OilChange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}
         </button>
 
