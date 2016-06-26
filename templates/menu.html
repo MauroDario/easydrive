@@ -26,7 +26,7 @@
                 <ion-list id="menu-list3" style="font-size: 50%;">
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('OilChange'),  'assertive':isOverDue('OilChange')}" id="menu-list-item10" ui-sref="menu.oilChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.OilChange}}
-                        <span ng-class="greatThat('OILCHANGE')? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["AIRFILTERCHANGE"] | modulo}}</span>
+                        <span ng-class="greatThat('OILCHANGE')? 'badge badge-balanced': 'badge badge-assertive'">{{dicDiffDays["OILCHANGE"] | modulo}}</span>
                         </ion-item>
                     <ion-item class="item-icon-left" ng-class="{'positive':!isOverDue('OilFilterChange'),  'assertive':isOverDue('OilFilterChange')}" id="menu-list-item13" ui-sref="menu.oilFilterChange" menu-close="">
                         <i class="icon ion-ios-arrow-forward"></i>{{translation.OilFilterChange}}

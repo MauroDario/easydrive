@@ -123,19 +123,19 @@ angular.module('app.controllers', ['app.service'])
 })
 
 // ABM Controllers start
-.controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification, localNotificationService, idsSchedule, $rootScope) {
+.controller('oilChangeCtrl', function ($scope, $cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilChange");         
     });
 })
 
-.controller('oilFilterChangeCtrl', function ($scope) {
+.controller('oilFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilFilterChange");
     });
 })
 
-.controller('airFilterChangeCtrl', function ($scope) {
+.controller('airFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("airFilterChange");
     });
