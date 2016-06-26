@@ -1,6 +1,7 @@
 angular.module('app.controllers', ['app.service'])
 
 .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite) {
+
     // Lenguaje start
 
     // Inicializo Combo de Lenguajes
@@ -98,12 +99,20 @@ angular.module('app.controllers', ['app.service'])
             };
         });
     };
-    
     $scope.counter=0;
-    
+
+    // Resetear el contador
+    $scope.resetCount = function (id) {
+        sqlService.updateCounter(id);
+    }
+
+    //close
+
+    // Al cambiar de página se actualizan los vectores de fechas.
     $scope.$on('$stateChangeSuccess', function () {
         $ionicPlatform.ready(function () {
             if (db != null) {
+                $scope.diccVenc = [];
                 sqlService.selectAll().then(function (data) {
                     for (i = 0; i < data.rows.length; i++) {
                         var reg = data.rows.item(i);
@@ -132,11 +141,11 @@ angular.module('app.controllers', ['app.service'])
 // ABM Controllers start
 .controller('oilChangeCtrl', function ($scope, localNotificationService) {
     $scope.$on('$stateChangeSuccess', function () {
-        $scope.loadABM("oilChange");        
+        $scope.loadABM("oilChange");
     });
 })
 
-.controller('oilFilterChangeCtrl', function ($scope) {
+.controller('oilFilterChangeCtrl', function ($scope, $cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilFilterChange");
     });

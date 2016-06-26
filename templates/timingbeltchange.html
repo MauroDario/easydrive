@@ -4,6 +4,15 @@
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
 
+        <div class="text-center" ng-show="isOverDue('Timingbeltchange')">
+            <br>
+            <h4  style="color:red;"> {{translation.controlOverdueMsg}} </h4>
+            <button class="button button-assertive button-block" ng-click="resetCount('Timingbeltchange')">
+                {{translation.resetCountBtn}}
+            </button>
+            <br>
+        </div>
+
         <button class="button button-balanced button-block" ng-click="showRemainingDays('Timingbeltchange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}
         </button>

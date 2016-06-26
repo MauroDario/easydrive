@@ -17,6 +17,8 @@
     "showRemainDaysMsg": "Remaining days to the next check: ",
     "showRemainDays": "Remaining days",
     "showRemainDaysBtn": "Show remaining days",
+    "controlOverdueMsg": "Attention! The control must be performed.",
+    "resetCountBtn": "Restart counter",
     "yes": "Yes",
     "no": "No",
 

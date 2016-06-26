@@ -25,9 +25,9 @@
             </form>
             <form id="menu-form4" class="list">
                 <ion-list class="item-text-wrap" id="menu-list3">
-                   <ion-item>
+                   <ion-item ng-if="counter > 0">
                        <i class="icon ion-ios-bell">                       
-                           <span ng-if="counter > 0">{{counter}}</span>    
+                           <span >{{counter}}</span>    
                        </i>
                        
                    </ion-item>
