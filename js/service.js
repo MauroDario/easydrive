@@ -24,11 +24,11 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         var _MS_PER_DAY = 1000 * 60 * 60 * 24;
         var utc1 = Date.UTC(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate());
         var utc2 = Date.UTC(secondDate.getFullYear(), secondDate.getMonth(), secondDate.getDate());
-        return Math.floor((utc1-utc2) / _MS_PER_DAY);
+        return Math.floor((utc1 - utc2) / _MS_PER_DAY);
     };
 
     this.addDays = function (date, days) {
-        var aux= new Date(date);
+        var aux = new Date(date);
         aux.setDate(aux.getDate() + days);
         return aux;
     }
@@ -58,8 +58,6 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         var query = "INSERT INTO abm_values (id, day_value, remaining_days, save_date) VALUES (?,?,?,?)";
         var today = new Date().toJSON().slice(0, 10);
         $cordovaSQLite.execute(db, query, [id, day_value, day_value, today]).then(function (res) {
-                console.log("INSERT ID -> " + id);
-
                 var alertPopup = $ionicPopup.alert({
                     title: $rootScope.translation.successSave,
                     template: $rootScope.translation.successSaveMsg
@@ -74,7 +72,6 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             },
             function (err) {
                 console.error(err);
-
                 var alertPopup = $ionicPopup.alert({
                     title: $rootScope.translation.errorSave,
                     template: $rootScope.translation.errorSaveMsg
@@ -91,7 +88,6 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
     self.selectAll = function () {
         var query = "SELECT * FROM abm_values";
-        console.log(db);
         return $cordovaSQLite.execute(db, query);
     }
 
@@ -102,9 +98,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
     self.deleteAll = function () {
         var query = "DELETE FROM abm_values";
-        $cordovaSQLite.execute(db, query).then(function (res) {
-            console.log("DELETE ALL");
-        }, function (err) {
+        $cordovaSQLite.execute(db, query).then(function (res) {}, function (err) {
             console.error(err);
         });
     };
@@ -131,7 +125,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             if (res) {
                 // Se desea reiniciar el contador
                 var query = "UPDATE abm_values SET day_value = ?, remaining_days = ?, save_date = ? WHERE UPPER(id) = UPPER(?)";
-                var today = new Date().toJSON().slice(0,10);
+                var today = new Date().toJSON().slice(0, 10);
                 $cordovaSQLite.execute(db, query, [day_value, day_value, today, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
@@ -201,7 +195,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 })
 
 .service("localNotificationService", function () {
-    this.scheduleDays = function (idForSchedule, text, date) {
+    this.scheduleDate = function (idForSchedule, text, date) {
         cordova.plugins.notification.local.isPresent(idForSchedule, function (present) {
             if (present) {
                 cordova.plugins.notification.local.update({
@@ -218,13 +212,5 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             }
         });
         cordova.plugins.notification.local.update
-    };
-
-    this.scheduleDate = function (idForSchedule, text, date) {
-        cordova.plugins.notification.local.schedule({
-            id: idForSchedule,
-            text: text,
-            at: date
-        });
     };
 });

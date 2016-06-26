@@ -1,8 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
 .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService) {
-
-
     // Lenguaje start
 
     // Inicializo Combo de Lenguajes
@@ -111,24 +109,33 @@ angular.module('app.controllers', ['app.service'])
                     value: data.rows.item(0).day_value
                 };
             });
-        }
+        };
         //close
+    $scope.$on('$stateChangeSuccess', function () {
+        sqlService.selectAll().then(function (data) {
+            for (i = 0; i < data.rows.length; i++) {
+                var reg = data.rows.item(i);
+                var save_date = new Date(reg.save_date);
+                $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(save_date, reg.day_value), new Date());
+            }
+        });
+    });
 })
 
 // ABM Controllers start
-.controller('oilChangeCtrl', function ($scope, sqlService, $cordovaLocalNotification, localNotificationService, idsSchedule, $rootScope) {
+.controller('oilChangeCtrl', function ($scope, $cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilChange");
     });
 })
 
-.controller('oilFilterChangeCtrl', function ($scope) {
+.controller('oilFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilFilterChange");
     });
 })
 
-.controller('airFilterChangeCtrl', function ($scope) {
+.controller('airFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("airFilterChange");
     });
