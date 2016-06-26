@@ -234,8 +234,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
     };
 
     //Tambien se crea el schedule para ese dia
-    self.insertOrUpdate = function (id, day_value,text) {
-        console.log("el texto en el iou "+text);
+    self.insertOrUpdate = function (id, day_value,text) {        
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
                 return self.update(day_value, id,text);

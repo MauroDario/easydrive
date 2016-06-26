@@ -72,9 +72,9 @@ angular.module('app.controllers', ['app.service'])
     // Guardar valor de días en la base
     $scope.save = function (id) {
         $scope.firstTime = false;
-        console.log("clave: "+id);
+        console.log("clave: " + id);
         console.log($rootScope.translation);
-        sqlService.insertOrUpdate(id, $scope.daysInput.value, $rootScope.translation[id+ "TextNotification"]);
+        sqlService.insertOrUpdate(id, $scope.daysInput.value, $rootScope.translation[id + "TextNotification"]);
 
     };
 
@@ -99,7 +99,7 @@ angular.module('app.controllers', ['app.service'])
             };
         });
     };
-    $scope.counter=0;
+    $scope.counter = 0;
 
     // Resetear el contador
     $scope.resetCount = function (id) {
@@ -113,6 +113,7 @@ angular.module('app.controllers', ['app.service'])
         $ionicPlatform.ready(function () {
             if (db != null) {
                 $scope.diccVenc = [];
+                $scope.counter = 0;
                 sqlService.selectAll().then(function (data) {
                     for (i = 0; i < data.rows.length; i++) {
                         var reg = data.rows.item(i);
@@ -125,11 +126,12 @@ angular.module('app.controllers', ['app.service'])
                         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
                         $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
-                        
-                        if (diffDays >= reg.day_value)
+
+                        if (diffDays >= reg.day_value) {
+                            //console.log(reg);
                             $scope.diccVenc.push(reg.id);
-                            $scope.counter= $scope.counter++;
-                            
+                            $scope.counter = $scope.counter + 1;
+                        }
                     }
                 });
             }
