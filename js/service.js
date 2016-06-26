@@ -66,7 +66,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
                 alertPopup.then(function (res) {
-                    $ionicHistory.clearCache([$state.current.name]).then(function () {
+                    $ionicHistory.clearCache().then(function () {
                         $state.reload();
                     });
                 });
@@ -81,7 +81,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
                 alertPopup.then(function (res) {
-                    $ionicHistory.clearCache([$state.current.name]).then(function () {
+                    $ionicHistory.clearCache().then(function () {
                         $state.reload();
                     });
                 });
@@ -139,7 +139,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache([$state.current.name]).then(function () {
+                        $ionicHistory.clearCache().then(function () {
                             $state.reload();
                         });
                     });
@@ -151,7 +151,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache([$state.current.name]).then(function () {
+                        $ionicHistory.clearCache().then(function () {
                             $state.reload();
                         });
                     });
@@ -166,7 +166,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache([$state.current.name]).then(function () {
+                        $ionicHistory.clearCache().then(function () {
                             $state.reload();
                         });
                     });
@@ -177,7 +177,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache([$state.current.name]).then(function () {
+                        $ionicHistory.clearCache().then(function () {
                             $state.reload();
                         });
                     });

@@ -1,5 +1,4 @@
-<ion-view title="OilChange" id="page2" class=" ">
- 
+<ion-view title="{{translation.OilChange}}" id="OilChange" class=" ">
     <ion-content padding="true" class="has-header">
         <div style="margin: 0px; line-height: 150px; text-align: center; background-color: rgb(232, 235, 239);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
@@ -12,7 +11,7 @@
         <div class="card text-center" style="margin-bottom: 0px;">
             <div class="item item-divider">
                 <div class="item-text-wrap">
-                    <p>{{translation.OilChange}}</p>
+                    <p>{{translation.OilChangeQuest}}</p>
                 </div>
             </div>
             <div class="item item-text-wrap" ng-show="editMode">
@@ -30,10 +29,10 @@
         <button class="button button-balanced button-block" ng-click="editMode=true;" ng-hide="editMode">
             {{translation.edit}}
         </button>
-        <button class="button button-positive button-block" ng-click="save('PlugsChange'); editMode=false;" ng-show="editMode">
+        <button class="button button-positive button-block" ng-click="save('OilChange'); editMode=false;" ng-show="editMode">
             {{translation.accept}}
         </button>
-        <button class="button button-positive button-block" ng-click="reset('PlugsChange'); editMode=false;" ng-show="!firstTime && editMode">
+        <button class="button button-positive button-block" ng-click="reset('OilChange'); editMode=false;" ng-show="!firstTime && editMode">
             {{translation.cancel}}
         </button>
 

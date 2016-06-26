@@ -3,7 +3,9 @@
         <div style="margin: 0px; line-height: 150px; text-align: center; background-color: rgb(232, 235, 239);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
-        <h2 style="color:red;" ng-show="isOverdue"> VENCIDO! </h2>
+
+        <h2 style="color:red;" ng-show="isOverDue('AirFilterChange')"> VENCIDO! </h2>
+
         <button class="button button-balanced button-block" ng-click="showRemainingDays('AirFilterChange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}
         </button>
