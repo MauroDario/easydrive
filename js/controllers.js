@@ -1,6 +1,7 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, $state, DateService) {
+
     // Lenguaje start
 
     // Inicializo Combo de Lenguajes
@@ -107,13 +108,20 @@ angular.module('app.controllers', ['app.service'])
 
     // Si cancela, el rangeBar se resetea!
     $scope.reset = function (id) {
-            sqlService.select(id).then(function (data) {
-                $scope.daysInput = {
-                    value: data.rows.item(0).day_value
-                };
-            });
-        };
-        //close
+        sqlService.select(id).then(function (data) {
+            $scope.daysInput = {
+                value: data.rows.item(0).day_value
+            };
+        });
+    };
+
+    // Resetear el contador
+    $scope.resetCount = function (id) {
+        sqlService.updateCounter(id);
+    }
+
+    //close
+
     $scope.$on('$stateChangeSuccess', function () {
         sqlService.selectAll().then(function (data) {
             for (i = 0; i < data.rows.length; i++) {
@@ -132,13 +140,13 @@ angular.module('app.controllers', ['app.service'])
     });
 })
 
-.controller('oilFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
+.controller('oilFilterChangeCtrl', function ($scope, $cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilFilterChange");
     });
 })
 
-.controller('airFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
+.controller('airFilterChangeCtrl', function ($scope, $cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("airFilterChange");
     });

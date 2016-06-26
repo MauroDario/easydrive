@@ -4,7 +4,16 @@
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
 
-    <button class="button button-balanced button-block" ng-click="showRemainingDays('CarWorkshopReview')" ng-hide="editMode">
+        <br>
+        <div class="text-center" ng-show="isOverDue('CarWorkshopReview')">
+            <h4 style="color:red;"> {{translation.controlOverdueMsg}} </h4>
+            <button class="button button-assertive button-block" ng-click="resetCount('CarWorkshopReview')">
+                {{translation.resetCountBtn}}
+            </button>
+        </div>
+        <br>
+
+        <button class="button button-balanced button-block" ng-click="showRemainingDays('CarWorkshopReview')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}
         </button>
 

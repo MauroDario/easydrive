@@ -4,10 +4,14 @@
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
 
-        <h2 style="color:red;" ng-show="isOverDue('AirFilterChange')"> VENCIDO! </h2>
-        <button class="button button-assertive button-block" ng-click="resetCount('AirFilterChange')" ng-show="isOverDue('AirFilterChange')">
-            REINICIAR!
-        </button>
+        <div class="text-center" ng-show="isOverDue('AirFilterChange')">
+            <br>
+            <h4 style="color:red;"> {{translation.controlOverdueMsg}} </h4>
+            <button class="button button-assertive button-block" ng-click="resetCount('AirFilterChange')">
+                {{translation.resetCountBtn}}
+            </button>
+            <br>
+        </div>
 
         <button class="button button-balanced button-block" ng-click="showRemainingDays('AirFilterChange')" ng-hide="editMode">
             {{translation.showRemainDaysBtn}}

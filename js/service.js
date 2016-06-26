@@ -112,6 +112,46 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         });
     };
 
+    self.updateCounter = function (id) {
+        var confirmPopup = $ionicPopup.confirm({
+            title: $rootScope.translation.askToRebootCount,
+            template: $rootScope.translation.askToRebootCountMsg,
+            cancelText: $rootScope.translation.no,
+            okText: $rootScope.translation.yes
+        });
+
+        confirmPopup.then(function (res) {
+            if (res) {
+                // Se desea reiniciar el contador
+                var query = "UPDATE abm_values SET save_date = ? WHERE UPPER(id) = UPPER(?)";
+                var today = new Date().toJSON().slice(0, 10);
+                $cordovaSQLite.execute(db, query, [today, id]).then(function (res) {
+                    var alertPopup = $ionicPopup.alert({
+                        title: $rootScope.translation.successSave,
+                        template: $rootScope.translation.successSaveMsg
+                    });
+
+                    alertPopup.then(function (res) {
+                        $ionicHistory.clearCache().then(function () {
+                            $state.reload();
+                        });
+                    });
+                }, function (err) {
+                    var alertPopup = $ionicPopup.alert({
+                        title: $rootScope.translation.errorSave,
+                        template: $rootScope.translation.errorSaveMsg
+                    });
+
+                    alertPopup.then(function (res) {
+                        $ionicHistory.clearCache().then(function () {
+                            $state.reload();
+                        });
+                    });
+                })
+            }
+        });
+    }
+
     self.update = function (day_value, id) {
         // Se pregunta si el usuario desea reiniciar el contador de días
         var confirmPopup = $ionicPopup.confirm({
