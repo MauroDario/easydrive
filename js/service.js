@@ -15,8 +15,18 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
 //definir los ids cuando se esten creando los abms
 .constant('idsSchedule', {
-    "oilChange": 1,
-
+    "OilChange": 1,
+    "OilFilterChange": 2,
+    "AirFilterChange": 3,
+    "cabinFilterChange": 4,
+    "PlugsChange": 5,
+    "TiresChange": 6,
+    "DampersChange": 7,
+    "CarWorkshopReview": 8,
+    "Coolantchange": 9,
+    "brakepadschange": 10,
+    "brakefluidchange": 11,
+    "Timingbeltchange": 12
 })
 
 .service('DateService', function () {
@@ -39,12 +49,11 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         var languageFilePath = 'Resource/i18n/translation_' + language + '.json';
         $resource(languageFilePath).get(function (data) {
             $rootScope.translation = data;
-
         });
     };
 })
 
-.service("sqlService", function ($cordovaSQLite, $ionicPopup, $rootScope, translationService, localNotificationService, idsSchedule, $ionicHistory, $state) {
+.service("sqlService", function ($cordovaSQLite, $ionicPopup, $rootScope, translationService, localNotificationService, idsSchedule, $ionicHistory, $state, DateService) {
     var self = this;
 
     self.execute = function (query, parameter) {
@@ -53,7 +62,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         return $cordovaSQLite.execute(db, query, parameter);
     };
 
-    self.insert = function (id, day_value) {
+    self.insert = function (id, day_value,text) {
         id = id.toUpperCase();
         var query = "INSERT INTO abm_values (id, day_value, remaining_days, save_date) VALUES (?,?,?,?)";
         var today = new Date().toJSON().slice(0, 10);
@@ -68,7 +77,6 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                         $state.reload();
                     });
                 });
-
             },
             function (err) {
                 console.error(err);
@@ -84,11 +92,12 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
             });
+        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(today, day_value));
     };
 
     self.selectAll = function () {
         var query = "SELECT * FROM abm_values";
-        return $cordovaSQLite.execute(db, query);
+            return $cordovaSQLite.execute(db, query, []);
     }
 
     self.select = function (id) {
@@ -112,7 +121,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         });
     };
 
-    self.update = function (day_value, id) {
+    self.update = function (day_value, id, text) {
         // Se pregunta si el usuario desea reiniciar el contador de días
         var confirmPopup = $ionicPopup.confirm({
             title: $rootScope.translation.askToRebootCount,
@@ -149,10 +158,11 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                             $state.reload();
                         });
                     });
-                })
+                });
+
             } else {
                 // No se desea reiniciar el contador
-                var query = "UPDATE abm_values SET day_value = ? WHERE UPPER(id) = UPPER(?)";                
+                var query = "UPDATE abm_values SET day_value = ? WHERE UPPER(id) = UPPER(?)";
                 $cordovaSQLite.execute(db, query, [day_value, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
@@ -177,40 +187,46 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
                 });
             }
+            //Notificacion
+            localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(today, day_value));
         });
 
     };
 
     //Tambien se crea el schedule para ese dia
-    self.insertOrUpdate = function (id, day_value) {
+    self.insertOrUpdate = function (id, day_value,text) {
+        console.log("el texto en el iou "+text);
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
-                return self.update(day_value, id);
+                return self.update(day_value, id,text);
             } else {
-                return self.insert(id, day_value);
+                return self.insert(id, day_value,text);
             }
-
         });
     };
 })
 
-.service("localNotificationService", function () {
+.service("localNotificationService", function ($ionicPlatform, $cordovaLocalNotification) {
     this.scheduleDate = function (idForSchedule, text, date) {
+        console.log("idforschedule: "+ idForSchedule);
+        console.log("text: "+ text);
+        console.log("date: "+ date);
         cordova.plugins.notification.local.isPresent(idForSchedule, function (present) {
             if (present) {
                 cordova.plugins.notification.local.update({
                     id: idForSchedule,
                     text: text,
-                    at: days
+                    at: date
                 });
             } else {
-                cordova.plugins.notification.local.schedule({
+                $ionicPlatform.ready(function () {
+                    cordova.plugins.notification.local.schedule({
                     id: idForSchedule,
                     text: text,
                     at: date
+                    })
                 });
             }
         });
-        cordova.plugins.notification.local.update
     };
 });

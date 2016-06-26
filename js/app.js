@@ -28,7 +28,6 @@ angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'a
         } else {
             db = window.openDatabase("my.db", '1', 'my', 1024 * 1024 * 100); // browser
             console.log("browser");
-
         }
 
         $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS abm_values (id text primary key, day_value integer, remaining_days integer, save_date text)");

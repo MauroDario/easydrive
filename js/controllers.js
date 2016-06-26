@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite) {
     // Lenguaje start
 
     // Inicializo Combo de Lenguajes
@@ -27,36 +27,15 @@ angular.module('app.controllers', ['app.service'])
 
     // Vencimiento start
 
-    if (db != null) {
-
-        $scope.diccVenc = new Array();
-        $scope.dicDiffDays = {};
-
-        sqlService.selectAll().then(function (data) {
-            for (i = 0; i < data.rows.length; i++) {
-                var reg = data.rows.item(i);
-
-                var save_date = new Date(reg.save_date);
-                save_date.setDate(save_date.getDate() + 1);
-                var today = new Date();
-
-                var timeDiff = Math.abs(today.getTime() - save_date.getTime());
-                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-                $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
-
-                if (diffDays >= reg.day_value)
-                    $scope.diccVenc.push(reg.id);
-            }
-        });
-    }
+    $scope.diccVenc = new Array();
+    $scope.dicDiffDays = {};
 
     $scope.isOverDue = function (id) {
         return $scope.diccVenc.some(elem => elem == id.toUpperCase());
     };
 
     $scope.greatThat = function (id) {
-        return $scope.dicDiffDays[id] >= 0;
+        return $scope.dicDiffDays[id] != undefined && $scope.dicDiffDays[id] >= 0;
     };
 
     //close
@@ -71,25 +50,31 @@ angular.module('app.controllers', ['app.service'])
 
                 $scope.firstTime = false;
                 $scope.editMode = false;
-                $scope.daysInput = {
-                    value: reg.day_value
-                };
+                $scope.daysInput.value = reg.day_value;
+
 
             } else {
                 $scope.firstTime = true;
                 $scope.editMode = true;
                 $scope.isOverdue = false;
                 $scope.daysInput = {
-                    value: 100
+                    value: 5
                 };
             }
         });
     }
 
+    $scope.daysInput = {
+        value: 1
+    };
+
     // Guardar valor de días en la base
     $scope.save = function (id) {
         $scope.firstTime = false;
-        sqlService.insertOrUpdate(id, $scope.daysInput.value);
+        console.log("clave: "+id);
+        console.log($rootScope.translation);
+        sqlService.insertOrUpdate(id, $scope.daysInput.value, $rootScope.translation[id+ "TextNotification"]);
+
     };
 
     // Mostrar popup con el valor de los días restantes
@@ -104,38 +89,55 @@ angular.module('app.controllers', ['app.service'])
 
     // Si cancela, el rangeBar se resetea!
     $scope.reset = function (id) {
-            sqlService.select(id).then(function (data) {
-                $scope.daysInput = {
-                    value: data.rows.item(0).day_value
-                };
-            });
-        };
-        //close
+        sqlService.select(id).then(function (data) {
+            $scope.daysInput = {
+                value: data.rows.item(0).day_value
+            };
+        });
+    };
+    //close
+
     $scope.$on('$stateChangeSuccess', function () {
-        sqlService.selectAll().then(function (data) {
-            for (i = 0; i < data.rows.length; i++) {
-                var reg = data.rows.item(i);
-                var save_date = new Date(reg.save_date);
-                $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(save_date, reg.day_value), new Date());                
+        $ionicPlatform.ready(function () {
+            if (db != null) {
+
+                sqlService.selectAll().then(function (data) {
+                    for (i = 0; i < data.rows.length; i++) {
+                        var reg = data.rows.item(i);
+
+                        var save_date = new Date(reg.save_date);
+                        save_date.setDate(save_date.getDate() + 1);
+                        var today = new Date();
+
+                        var timeDiff = Math.abs(today.getTime() - save_date.getTime());
+                        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                        $scope.dicDiffDays[reg.id] = DateService.diffDates(DateService.addDays(reg.save_date, reg.day_value), today);
+
+                        if (diffDays >= reg.day_value)
+                            $scope.diccVenc.push(reg.id);
+                    }
+                });
             }
         });
     });
 })
 
+
 // ABM Controllers start
-.controller('oilChangeCtrl', function ($scope, $cordovaLocalNotification) {
+.controller('oilChangeCtrl', function ($scope, localNotificationService) {
     $scope.$on('$stateChangeSuccess', function () {
-        $scope.loadABM("oilChange");         
+        $scope.loadABM("oilChange");        
     });
 })
 
-.controller('oilFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
+.controller('oilFilterChangeCtrl', function ($scope) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("oilFilterChange");
     });
 })
 
-.controller('airFilterChangeCtrl', function ($scope,$cordovaLocalNotification) {
+.controller('airFilterChangeCtrl', function ($scope, $cordovaLocalNotification) {
     $scope.$on('$stateChangeSuccess', function () {
         $scope.loadABM("airFilterChange");
     });
