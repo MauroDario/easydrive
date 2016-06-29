@@ -62,7 +62,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         return $cordovaSQLite.execute(db, query, parameter);
     };
 
-    self.insert = function (id, day_value,text) {
+    self.insert = function (id, day_value, text) {
         id = id.toUpperCase();
         var query = "INSERT INTO abm_values (id, day_value, save_date) VALUES (?,?,?)";
         var today = new Date().toJSON().slice(0, 10);
@@ -73,9 +73,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
                 alertPopup.then(function (res) {
-                    $ionicHistory.clearCache().then(function () {
-                        $state.reload();
-                    });
+                    $state.reload();
                 });
             },
             function (err) {
@@ -86,9 +84,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
                 alertPopup.then(function (res) {
-                    $ionicHistory.clearCache().then(function () {
-                        $state.reload();
-                    });
+                    $state.reload();
                 });
 
             });
@@ -97,7 +93,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
     self.selectAll = function () {
         var query = "SELECT * FROM abm_values";
-            return $cordovaSQLite.execute(db, query, []);
+        return $cordovaSQLite.execute(db, query, []);
     }
 
     self.select = function (id) {
@@ -141,9 +137,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 }, function (err) {
                     var alertPopup = $ionicPopup.alert({
@@ -152,9 +146,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 })
             }
@@ -182,9 +174,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
 
                 }, function (err) {
@@ -194,9 +184,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 });
 
@@ -210,9 +198,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 }, function (err) {
                     var alertPopup = $ionicPopup.alert({
@@ -221,9 +207,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 });
             }
@@ -234,12 +218,12 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
     };
 
     //Tambien se crea el schedule para ese dia
-    self.insertOrUpdate = function (id, day_value,text) {        
+    self.insertOrUpdate = function (id, day_value, text) {
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
-                return self.update(day_value, id,text);
+                return self.update(day_value, id, text);
             } else {
-                return self.insert(id, day_value,text);
+                return self.insert(id, day_value, text);
             }
         });
     };
@@ -260,9 +244,9 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             } else {
                 $ionicPlatform.ready(function () {
                     cordova.plugins.notification.local.schedule({
-                    id: idForSchedule,
-                    text: text,
-                    at: date
+                        id: idForSchedule,
+                        text: text,
+                        at: date
                     })
                 });
             }
