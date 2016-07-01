@@ -79,7 +79,7 @@ angular.module('app.controllers', ['app.service'])
 
     // Mostrar popup con el valor de los días restantes
     $scope.showRemainingDays = function (id) {
-        sqlService.select(id).then(function (data) {
+        sqlService.select(id).then(function (data) {            
             var day = DateService.addDays(data.rows.item(0).save_date, -1);
             var day2 = new Date(data.rows.item(0).save_date);
             var mje = $rootScope.translation.showRemainDaysMsg + $scope.dicDiffDays[id.toUpperCase()] + ". <br> Fecha inicial de conteo: " + day2.getDate() + "/" + (day2.getMonth() + 1) + "/" + day2.getFullYear();
