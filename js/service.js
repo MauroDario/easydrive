@@ -88,7 +88,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
             });
-        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(today, day_value));
+        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), day_value));
     };
 
     self.selectAll = function () {
