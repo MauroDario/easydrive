@@ -31,16 +31,15 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
 .service('DateService', function () {
     this.diffDates = function (firstDate, secondDate) {
-        var _MS_PER_DAY = 1000 * 60 * 60 * 24;
-        var utc1 = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate());
-        var utc2 = new Date(secondDate.getFullYear(), secondDate.getMonth(), secondDate.getDate());
-        return Math.floor((utc1 - utc2) / _MS_PER_DAY);
+        var utc1 = moment(firstDate);
+        var utc2 = moment(secondDate);        
+        return utc1.diff(utc2,'days');
     };
 
     this.addDays = function (date, days) {
-        var aux = new Date(date);
-        aux.setDate(aux.getDate() + days);
-        return aux;
+        var aux = moment(date);
+        aux.add(days,'days')
+        return aux.toDate();
     }
 })
 
@@ -62,10 +61,11 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         return $cordovaSQLite.execute(db, query, parameter);
     };
 
-    self.insert = function (id, day_value,text) {
+    self.insert = function (id, day_value, text) {
         id = id.toUpperCase();
         var query = "INSERT INTO abm_values (id, day_value, save_date) VALUES (?,?,?)";
-        var today = new Date().toJSON().slice(0, 10);
+        var today = moment().format('YYYY-MM-DD');
+        //console.log("today: JSON "+today);
         $cordovaSQLite.execute(db, query, [id, day_value, today]).then(function (res) {
                 var alertPopup = $ionicPopup.alert({
                     title: $rootScope.translation.successSave,
@@ -73,9 +73,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
                 alertPopup.then(function (res) {
-                    $ionicHistory.clearCache().then(function () {
-                        $state.reload();
-                    });
+                    $state.reload();
                 });
             },
             function (err) {
@@ -86,18 +84,16 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
                 alertPopup.then(function (res) {
-                    $ionicHistory.clearCache().then(function () {
-                        $state.reload();
-                    });
+                    $state.reload();
                 });
 
             });
-        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(today, day_value));
+        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), day_value));
     };
 
     self.selectAll = function () {
         var query = "SELECT * FROM abm_values";
-            return $cordovaSQLite.execute(db, query, []);
+        return $cordovaSQLite.execute(db, query, []);
     }
 
     self.select = function (id) {
@@ -133,7 +129,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             if (res) {
                 // Se desea reiniciar el contador
                 var query = "UPDATE abm_values SET save_date = ? WHERE UPPER(id) = UPPER(?)";
-                var today = new Date().toJSON().slice(0, 10);
+                var today = moment().format('YYYY-MM-DD');
                 $cordovaSQLite.execute(db, query, [today, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
@@ -141,9 +137,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 }, function (err) {
                     var alertPopup = $ionicPopup.alert({
@@ -152,9 +146,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 })
             }
@@ -174,7 +166,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             if (res) {
                 // Se desea reiniciar el contador
                 var query = "UPDATE abm_values SET day_value = ?, save_date = ? WHERE UPPER(id) = UPPER(?)";
-                var today = new Date().toJSON().slice(0, 10);
+                var today = moment().format('YYYY-MM-DD');
                 $cordovaSQLite.execute(db, query, [day_value, today, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
@@ -182,9 +174,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
 
                 }, function (err) {
@@ -194,12 +184,9 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
-                });
-
+                });                
             } else {
                 // No se desea reiniciar el contador
                 var query = "UPDATE abm_values SET day_value = ? WHERE UPPER(id) = UPPER(?)";
@@ -210,9 +197,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
                 }, function (err) {
                     var alertPopup = $ionicPopup.alert({
@@ -221,25 +206,23 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.clearCache().then(function () {
-                            $state.reload();
-                        });
+                        $state.reload();
                     });
-                });
+                });                
             }
             //Notificacion
-            localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(today, day_value));
+            localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), day_value));
         });
 
     };
 
     //Tambien se crea el schedule para ese dia
-    self.insertOrUpdate = function (id, day_value,text) {        
+    self.insertOrUpdate = function (id, day_value, text) {
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
-                return self.update(day_value, id,text);
+                return self.update(day_value, id, text);
             } else {
-                return self.insert(id, day_value,text);
+                return self.insert(id, day_value, text);
             }
         });
     };
@@ -247,9 +230,6 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
 
 .service("localNotificationService", function ($ionicPlatform, $cordovaLocalNotification) {
     this.scheduleDate = function (idForSchedule, text, date) {
-        /*console.log("idforschedule: "+ idForSchedule);
-        console.log("text: "+ text);
-        console.log("date: "+ date);*/
         cordova.plugins.notification.local.isPresent(idForSchedule, function (present) {
             if (present) {
                 cordova.plugins.notification.local.update({
@@ -260,10 +240,10 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
             } else {
                 $ionicPlatform.ready(function () {
                     cordova.plugins.notification.local.schedule({
-                    id: idForSchedule,
-                    text: text,
-                    at: date
-                    })
+                        id: idForSchedule,
+                        text: text,
+                        at: date
+                    });
                 });
             }
         });

@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state) {
 
     // Lenguaje start
 
@@ -12,7 +12,6 @@ angular.module('app.controllers', ['app.service'])
     // Defino función de cambio de Lenguaje
     $rootScope.translate = function (language) {
         $rootScope.selectedLanguage = language;
-        $ionicHistory.clearCache();
         translationService.getTranslation($rootScope, $rootScope.selectedLanguage);
     };
 
@@ -80,7 +79,7 @@ angular.module('app.controllers', ['app.service'])
 
     // Mostrar popup con el valor de los días restantes
     $scope.showRemainingDays = function (id) {
-        sqlService.select(id).then(function (data) {
+        sqlService.select(id).then(function (data) {            
             var day = DateService.addDays(data.rows.item(0).save_date, -1);
             var day2 = new Date(data.rows.item(0).save_date);
             var mje = $rootScope.translation.showRemainDaysMsg + $scope.dicDiffDays[id.toUpperCase()] + ". <br> Fecha inicial de conteo: " + day2.getDate() + "/" + (day2.getMonth() + 1) + "/" + day2.getFullYear();
@@ -137,6 +136,15 @@ angular.module('app.controllers', ['app.service'])
             }
         });
     });
+
+    // Manejo de acción back button
+    $ionicPlatform.registerBackButtonAction(function (event) {
+        if ($state.current.name == "menu.home") {
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        } else {
+            navigator.app.backHistory();
+        }
+    }, 100);
 })
 
 
