@@ -59,7 +59,7 @@ angular.module('app.controllers', ['app.service'])
                 $scope.editMode = true;
                 $scope.isOverdue = false;
                 $scope.daysInput = {
-                    value: 5
+                    value: 0
                 };
             }
         });
