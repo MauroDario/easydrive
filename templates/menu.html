@@ -32,73 +32,169 @@
                     <a class="item item-avatar" id="menu-list-item10" ui-sref="menu.oilChange" menu-close="">
                         <img ng-if="!isOverDue('OilChange')" src="img/blue_icons/aceite.png">
                         <img ng-if="isOverDue('OilChange')" src="img/red_icons/aceite.png">
-                        <h2 style="padding-top: 10px;">{{translation.OilChange}}</h2>
+                        <div ng-if="dicDiffDays['OILCHANGE'] != undefined">
+                            <h2>{{translation.OilChange}}</h2>
+                            <p ng-class="dicDiffDays['OILCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["OILCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['OILCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.OilChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item13" ui-sref="menu.oilFilterChange" menu-close="">
                         <img ng-if="!isOverDue('OilFilterChange')" src="img/blue_icons/aceitefiltro.png">
                         <img ng-if="isOverDue('OilFilterChange')" src="img/red_icons/aceitefiltro.png">
-                        <h2 style="padding-top: 10px;">{{translation.OilFilterChange}}</h2>
+                        <div ng-if="dicDiffDays['OILFILTERCHANGE'] != undefined">
+                            <h2>{{translation.OilFilterChange}}</h2>
+                            <p ng-class="dicDiffDays['OILFILTERCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["OILFILTERCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['OILFILTERCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.OilFilterChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item11" ui-sref="menu.airFilterChange" menu-close="">
                         <img ng-if="!isOverDue('AirFilterChange')" src="img/blue_icons/filtroaire.png">
                         <img ng-if="isOverDue('AirFilterChange')" src="img/red_icons/filtroaire.png">
-                        <h2 style="padding-top: 10px;">{{translation.AirFilterChange}}</h2>
+                        <div ng-if="dicDiffDays['AIRFILTERCHANGE'] != undefined">
+                            <h2>{{translation.AirFilterChange}}</h2>
+                            <p ng-class="dicDiffDays['AIRFILTERCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["AIRFILTERCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['AIRFILTERCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.AirFilterChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item12" ui-sref="menu.cabinFilterChange" menu-close="">
                         <img ng-if="!isOverDue('CabinFilterChange')" src="img/blue_icons/habitaculo.png">
                         <img ng-if="isOverDue('CabinFilterChange')" src="img/red_icons/habitaculo.png">
-                        <h2 style="padding-top: 10px;">{{translation.CabinFilterChange}}</h2>
+                        <div ng-if="dicDiffDays['CABINFILTERCHANGE'] != undefined">
+                            <h2>{{translation.CabinFilterChange}}</h2>
+                            <p ng-class="dicDiffDays['CABINFILTERCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["CABINFILTERCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['CABINFILTERCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.CabinFilterChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item27" ui-sref="menu.plugsChange" menu-close="">
                         <img ng-if="!isOverDue('PlugsChange')" src="img/blue_icons/bujias.png">
                         <img ng-if="isOverDue('PlugsChange')" src="img/red_icons/bujias.png">
-                        <h2 style="padding-top: 10px;">{{translation.PlugsChange}}</h2>
+                        <div ng-if="dicDiffDays['PLUGSCHANGE'] != undefined">
+                            <h2>{{translation.PlugsChange}}</h2>
+                            <p ng-class="dicDiffDays['PLUGSCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["PLUGSCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['PLUGSCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.PlugsChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item28" ui-sref="menu.tiresChange" menu-close="">
                         <img ng-if="!isOverDue('TiresChange')" src="img/blue_icons/ruedas.png">
                         <img ng-if="isOverDue('TiresChange')" src="img/red_icons/ruedas.png">
-                        <h2 style="padding-top: 10px;">{{translation.TiresChange}}</h2>
+                        <div ng-if="dicDiffDays['TIRESCHANGE'] != undefined">
+                            <h2>{{translation.TiresChange}}</h2>
+                            <p ng-class="dicDiffDays['TIRESCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["TIRESCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['TIRESCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.TiresChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item29" ui-sref="menu.dampersChange" menu-close="">
                         <img ng-if="!isOverDue('DampersChange')" src="img/blue_icons/amortiguador.png">
                         <img ng-if="isOverDue('DampersChange')" src="img/red_icons/amortiguador.png">
-                        <h2 style="padding-top: 10px;">{{translation.DampersChange}}</h2>
+                        <div ng-if="dicDiffDays['DAMPERSCHANGE'] != undefined">
+                            <h2>{{translation.DampersChange}}</h2>
+                            <p ng-class="dicDiffDays['DAMPERSCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["DAMPERSCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['DAMPERSCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.DampersChange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item30" ui-sref="menu.carWorkshopReview" menu-close="">
                         <img ng-if="!isOverDue('CarWorkshopReview')" src="img/blue_icons/diagnostico.png">
                         <img ng-if="isOverDue('CarWorkshopReview')" src="img/red_icons/diagnostico.png">
-                        <h2 style="padding-top: 10px;">{{translation.CarWorkshopReview}}</h2>
+                        <div ng-if="dicDiffDays['CARWORKSHOPREVIEW'] != undefined">
+                            <h2>{{translation.CarWorkshopReview}}</h2>
+                            <p ng-class="dicDiffDays['CARWORKSHOPREVIEW'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["CARWORKSHOPREVIEW"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['CARWORKSHOPREVIEW'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.CarWorkshopReview}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item31" ui-sref="menu.coolantchange" menu-close="">
                         <img ng-if="!isOverDue('Coolantchange')" src="img/blue_icons/liquido.png">
                         <img ng-if="isOverDue('Coolantchange')" src="img/red_icons/liquido.png">
-                        <h2 style="padding-top: 10px;">{{translation.Coolantchange}}</h2>
+                        <div ng-if="dicDiffDays['COOLANTCHANGE'] != undefined">
+                            <h2>{{translation.Coolantchange}}</h2>
+                            <p ng-class="dicDiffDays['COOLANTCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["COOLANTCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['COOLANTCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.Coolantchange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item32" ui-sref="menu.brakepadschange" menu-close="">
                         <img ng-if="!isOverDue('Brakepadschange')" src="img/blue_icons/pastillas.png">
                         <img ng-if="isOverDue('Brakepadschange')" src="img/red_icons/pastillas.png">
-                        <h2 style="padding-top: 10px;">{{translation.Brakepadschange}}</h2>
+                        <div ng-if="dicDiffDays['BRAKEPADSCHANGE'] != undefined">
+                            <h2>{{translation.Brakepadschange}}</h2>
+                            <p ng-class="dicDiffDays['BRAKEPADSCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["BRAKEPADSCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['BRAKEPADSCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.Brakepadschange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item33" ui-sref="menu.brakefluidchange" menu-close="">
                         <img ng-if="!isOverDue('Brakefluidchange')" src="img/blue_icons/liquidofreno.png">
                         <img ng-if="isOverDue('Brakefluidchange')" src="img/red_icons/liquidofreno.png">
-                        <h2 style="padding-top: 10px;">{{translation.Brakefluidchange}}</h2>
+                        <div ng-if="dicDiffDays['BRAKEFLUIDCHANGE'] != undefined">
+                            <h2>{{translation.Brakefluidchange}}</h2>
+                            <p ng-class="dicDiffDays['BRAKEFLUIDCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["BRAKEFLUIDCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['BRAKEFLUIDCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.Brakefluidchange}}</h2>
+                        </div>
                     </a>
 
                     <a class="item item-avatar" id="menu-list-item34" ui-sref="menu.timingbeltchange" menu-close="">
                         <img ng-if="!isOverDue('Timingbeltchange')" src="img/blue_icons/correa.png">
                         <img ng-if="isOverDue('Timingbeltchange')" src="img/red_icons/correa.png">
-                        <h2 style="padding-top: 10px;">{{translation.Timingbeltchange}}</h2>
+                        <div ng-if="dicDiffDays['TIMINGBELTCHANGE'] != undefined">
+                            <h2>{{translation.Timingbeltchange}}</h2>
+                            <p ng-class="dicDiffDays['TIMINGBELTCHANGE'] <= expireSoonDays ? 'expire-soon' : ''">
+                                {{translation.showRemainDays}}: {{dicDiffDays["TIMINGBELTCHANGE"]}}
+                            </p>
+                        </div>
+                        <div ng-if="dicDiffDays['TIMINGBELTCHANGE'] == undefined">
+                            <h2 style="padding-top: 10px;">{{translation.Timingbeltchange}}</h2>
+                        </div>
                     </a>
                 </ion-list>
             </form>

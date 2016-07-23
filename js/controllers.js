@@ -2,6 +2,9 @@ angular.module('app.controllers', ['app.service'])
 
 .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state) {
 
+    // Días previos para dar aviso que falta poco
+    $scope.expireSoonDays = 5;
+
     // Lenguaje start
 
     // Inicializo Combo de Lenguajes
