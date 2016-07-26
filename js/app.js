@@ -3,7 +3,7 @@ var index = 1;
 
 angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.service', 'app.directives'])
 
-  .run(function ($ionicPlatform, $cordovaSQLite, $rootScope, $interval, $cordovaLocalNotification) {
+  .run(function ($ionicPlatform, $cordovaSQLite, $rootScope, $interval, $cordovaLocalNotification,$state) {
 
     $ionicPlatform.ready(function () {
 

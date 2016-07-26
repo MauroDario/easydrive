@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.service'])
 
-    .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state) {
+    .controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state,$ionicModal) {
 
         // Días previos para dar aviso que falta poco
         $scope.expireSoonDays = 5;
