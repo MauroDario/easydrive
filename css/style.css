@@ -1,3 +1,69 @@
 .expire-soon {
     color: red !important;
 }
+
+/* Introduction Modal Style  Begin*/
+
+/*Override the modal css default by ionic */
+@media (min-width: 680px) {
+  .modal {
+    top: 0px !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }     
+}
+
+.card-help
+{
+    /*border: 1px solid red;*/
+    height: 100%;
+    width: 100%;
+    padding: 1vw 0;
+    
+}
+.card-image{    
+    /*border: 1px solid orange;*/
+    text-align: center;
+    margin:0;
+}
+
+.image-first{
+    max-width: 500px;
+    height: 55vh;
+    width: 40vw; 
+}
+
+.image-second{    
+    height: 40vh;
+    width: 55vw; 
+}
+
+.card-content{    
+    /*border: 1px solid cyan;*/
+    display: inline-block;
+    width: 100vw;
+    margin-top: 5vh;
+    padding: 0;    
+}
+
+.card-title{
+    font-size: 6vw;
+    font-weight: 600;
+    color: #262626;  
+    margin: 2vh 10vw;    
+    text-align: center;
+}
+
+.card-text{
+    /*border: 1px solid cyan;*/
+    color: #666666;
+    font-size: 4vw;
+    font-weight: 600;
+    margin-top: 1vh;  
+    padding: 0 2vw;  
+    text-align: center;
+}
+
+/* Introduction Modal Style  End */
