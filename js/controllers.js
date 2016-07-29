@@ -1,9 +1,9 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state,ExpireSoonDays) {
 
     // Días previos para dar aviso que falta poco
-    $scope.expireSoonDays = 5;
+    $scope.expireSoonDays = ExpireSoonDays.value;
 
     // Lenguaje start
 
@@ -73,10 +73,8 @@ angular.module('app.controllers', ['app.service'])
 
     // Guardar valor de días en la base
     $scope.save = function (id) {
-        $scope.firstTime = false;
-        console.log("clave: " + id);
-        console.log($rootScope.translation);
-        sqlService.insertOrUpdate(id, $scope.daysInput.value, $rootScope.translation[id + "TextNotification"]);
+        $scope.firstTime = false;        
+        sqlService.insertOrUpdate(id, $scope.daysInput.value, $rootScope.translation[id + "TextNotification"],$rootScope.translation[id + "TextNotificationXDays"]);
 
     };
 

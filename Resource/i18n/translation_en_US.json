@@ -34,7 +34,7 @@
     "Brakepadschange": "Brake pads change",
     "Brakefluidchange": "Brake fluid change",
     "Timingbeltchange": "Timing belt change",
-
+    
     "OilChangeQuest": "How often do you want to make a oil change?",
     "OilFilterChangeQuest": "How often do you want to make a oil filter change?",
     "AirFilterChangeQuest": "How often do you want to make a air filter change?",
@@ -46,5 +46,31 @@
     "CoolantchangeQuest": "How often do you want to make a coolant change?",
     "BrakepadschangeQuest": "How often do you want to make a brake pads change?",
     "BrakefluidchangeQuest": "How often do you want to make a brake fluid change?",
-    "TimingbeltchangeQuest": "How often do you want to make a timing belt change?"
+    "TimingbeltchangeQuest": "How often do you want to make a timing belt change?",
+    
+    "OilChangeTextNotification": "Oil change",
+    "OilFilterChangeTextNotification": "Oil filter change",
+    "AirFilterChangeTextNotification": "Air filter change",
+    "cabinFilterChangeTextNotification": "Cabin filter change",
+    "PlugsChangeTextNotification": "Plugs change",
+    "TiresChangeTextNotification": "Tires change",
+    "DampersChangeTextNotification": "Dampers change",
+    "CarWorkshopReviewTextNotification":"Car workshop review",
+    "CoolantchangeTextNotification": "Coolant change",
+    "brakepadschangeTextNotification": "Brake pads change",
+    "brakefluidchangeTextNotification": "Brake fluid change",
+    "timingbeltchangeTextNotification": "Timing belt change",
+    
+    "OilChangeTextNotificationXDays": "Oil change",
+    "OilFilterChangeTextNotificationXDays": "Oil filter change",
+    "AirFilterChangeTextNotificationXDays": "Air filter change",
+    "cabinFilterChangeTextNotificationXDays": "Cabin filter change",
+    "PlugsChangeTextNotificationXDays": "Plugs change",
+    "TiresChangeTextNotificationXDays": "Tires change",
+    "DampersChangeTextNotificationXDays": "Dampers change",
+    "CarWorkshopReviewTextNotificationXDays":"Car workshop review",
+    "CoolantchangeTextNotificationXDays": "Coolant change",
+    "brakepadschangeTextNotificationXDays": "Brake pads change",
+    "brakefluidchangeTextNotificationXDays": "Brake fluid change",
+    "timingbeltchangeTextNotificationXDays": "Timing belt change",
 }
