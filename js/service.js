@@ -61,12 +61,12 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         return $cordovaSQLite.execute(db, query, parameter);
     };
 
-    self.insert = function (id, day_value, text) {
+    self.insert = function (id, time_value, text) {
         id = id.toUpperCase();
-        var query = "INSERT INTO abm_values (id, day_value, save_date) VALUES (?,?,?)";
+        var query = "INSERT INTO abm_values (id, time_value, save_date) VALUES (?,?,?)";
         var today = moment().format('YYYY-MM-DD');
         //console.log("today: JSON "+today);
-        $cordovaSQLite.execute(db, query, [id, day_value, today]).then(function (res) {
+        $cordovaSQLite.execute(db, query, [id, time_value, today]).then(function (res) {
                 var alertPopup = $ionicPopup.alert({
                     title: $rootScope.translation.successSave,
                     template: $rootScope.translation.successSaveMsg
@@ -88,7 +88,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
             });
-        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), day_value));
+        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), time_value));
     };
 
     self.selectAll = function () {
@@ -153,7 +153,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         });
     }
 
-    self.update = function (day_value, id, text) {
+    self.update = function (time_value, id, text) {
         // Se pregunta si el usuario desea reiniciar el contador de días
         var confirmPopup = $ionicPopup.confirm({
             title: $rootScope.translation.askToRebootCount,
@@ -165,9 +165,9 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         confirmPopup.then(function (res) {
             if (res) {
                 // Se desea reiniciar el contador
-                var query = "UPDATE abm_values SET day_value = ?, save_date = ? WHERE UPPER(id) = UPPER(?)";
+                var query = "UPDATE abm_values SET time_value = ?, save_date = ? WHERE UPPER(id) = UPPER(?)";
                 var today = moment().format('YYYY-MM-DD');
-                $cordovaSQLite.execute(db, query, [day_value, today, id]).then(function (res) {
+                $cordovaSQLite.execute(db, query, [time_value, today, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
                         template: $rootScope.translation.successSaveMsg
@@ -189,8 +189,8 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });                
             } else {
                 // No se desea reiniciar el contador
-                var query = "UPDATE abm_values SET day_value = ? WHERE UPPER(id) = UPPER(?)";
-                $cordovaSQLite.execute(db, query, [day_value, id]).then(function (res) {
+                var query = "UPDATE abm_values SET time_value = ? WHERE UPPER(id) = UPPER(?)";
+                $cordovaSQLite.execute(db, query, [time_value, id]).then(function (res) {
                     var alertPopup = $ionicPopup.alert({
                         title: $rootScope.translation.successSave,
                         template: $rootScope.translation.successSaveMsg
@@ -211,18 +211,18 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });                
             }
             //Notificacion
-            localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), day_value));
+            localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), time_value));
         });
 
     };
 
     //Tambien se crea el schedule para ese dia
-    self.insertOrUpdate = function (id, day_value, text) {
+    self.insertOrUpdate = function (id, time_value, text) {
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
-                return self.update(day_value, id, text);
+                return self.update(time_value, id, text);
             } else {
-                return self.insert(id, day_value, text);
+                return self.insert(id, time_value, text);
             }
         });
     };

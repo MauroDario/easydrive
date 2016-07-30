@@ -26,17 +26,23 @@
             </div>
             <div class="item item-text-wrap" ng-show="editMode">
                 <ion-item class="range range-positive " id="oilChange-range1">
-                    <input type="range" min="0" max="700" step="50" ng-model="daysInput.value">
+                    <input type="range" min="{{rangeValues.min}}" max="{{rangeValues.max}}" step="{{rangeValues.step}}" ng-model="timeInput.value">
                 </ion-item>
             </div>
             <div class="item item-divider">
                 <div class="item-text-wrap">
-                    <p>{{daysInput.value}} {{translation.days}}</p>
+                    <p ng-hide="editMode">{{timeInput.value}} {{translation.days}}</p>
+                    <p ng-show="editMode">{{timeInput.value}}</p>
+                </div>
+                <div class="button-bar bar-positive padding-top" ng-show="editMode">
+                    <a class="button button-small" ng-click="clicked('d')" ng-class="{'active': time_type == 'd'}">Días</a>
+                    <a class="button button-small" ng-click="clicked('m')" ng-class="{'active': time_type == 'm'}">Meses</a>
+                    <a class="button button-small" ng-click="clicked('y')" ng-class="{'active': time_type == 'y'}">Años</a>
                 </div>
             </div>
         </div>
 
-        <button class="button button-balanced button-block" ng-click="editMode=true;" ng-hide="editMode">
+        <button class="button button-balanced button-block" ng-click="changeTypeTime(); editMode=true;" ng-hide="editMode">
             {{translation.edit}}
         </button>
         <button class="button button-positive button-block" ng-click="save('Timingbeltchange'); editMode=false;" ng-show="editMode">

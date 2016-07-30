@@ -42,7 +42,7 @@ angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'a
           else {
             // If not exist the table, redirect to show the introduction modal
             console.log("NOT EXIST the table");
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS abm_values (id text primary key, day_value integer, save_date text)");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS abm_values (id text primary key, time_value integer, save_date text)");
             $state.go('menu.introduction');
           }
         }, function (err) {
