@@ -1,9 +1,9 @@
 angular.module('app.controllers', ['app.service'])
 
-.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state, $ionicModal) {
+.controller('homeCtrl', function ($scope, $rootScope, translationService, sqlService, idsSchedule, $ionicPopup, $ionicHistory, DateService, $ionicPlatform, $cordovaSQLite, $state, ExpireSoonDays, $ionicModal) {
 
     // Días previos para dar aviso que falta poco
-    $scope.expireSoonDays = 5;
+    $scope.expireSoonDays = ExpireSoonDays.value;
 
     // Lenguaje start
 
@@ -45,75 +45,71 @@ angular.module('app.controllers', ['app.service'])
 
     // ABM start
 
-    // Se inicializan todas las variables del ABM
+    // Se inicializa la variable que permite alternan entre pantalla visualización/edición, según si hay valor cargado o no.
     $scope.loadABM = function (id) {
-            sqlService.select(id).then(function (data) {
-                if (data.rows.length > 0) {
-                    var reg = data.rows.item(0);
+        sqlService.select(id).then(function (data) {
+            if (data.rows.length > 0) {
+                var reg = data.rows.item(0);
 
-                    $scope.firstTime = false;
-                    $scope.editMode = false;
-                    $scope.timeInput = {
-                        value: reg.time_value
-                    };
+                $scope.firstTime = false;
+                $scope.editMode = false;
+                $scope.timeInput = {
+                    value: reg.time_value
+                };
 
-                    $scope.time_type = $scope.castTypeTime(reg.time_value)
-                    switch ($scope.time_type) {
-                    case 'm':
-                        $scope.rangeValues = {
+                $scope.time_type = $scope.castTypeTime(reg.time_value)
+                switch ($scope.time_type) {
+                case 'm':
+                    $scope.rangeValues = {
                             max: 24,
                             min: 0,
                             step: 1
                         }
                         //$scope.typeTimeLbl.value = $rootScope.translation["months"];
-                        break;
+                    break;
 
-                    case 'y':
-                        $scope.rangeValues = {
+                case 'y':
+                    $scope.rangeValues = {
                             max: 3,
                             min: 0,
                             step: 1
                         }
                         //$scope.typeTimeLbl.value = $rootScope.translation["years"];
-                        break;
+                    break;
 
-                    default:
-                        $scope.rangeValues = {
+                default:
+                    $scope.rangeValues = {
                             max: 700,
                             min: 0,
                             step: 50
                         }
                         //$scope.typeTimeLbl.value = $rootScope.translation["days"];
-                        break;
-                    }
-
-                } else {
-                    $scope.firstTime = true;
-                    $scope.editMode = true;
-                    $scope.isOverdue = false;
-                    $scope.timeInput = {
-                        value: 0
-                    };
-                    $scope.rangeValues = {
-                        max: 700,
-                        min: 0,
-                        step: 50
-                    }
-                    $scope.time_type = 'd';
-                    /*$scope.typeTimeLbl = {
-                        value: $rootScope.translation["days"]
-                    };*/
+                    break;
                 }
-            });
-        }
-        /*
-        $scope.timeInput = {
-            value: 1
-        };*/
+
+            } else {
+                $scope.firstTime = true;
+                $scope.editMode = true;
+                $scope.isOverdue = false;
+                $scope.timeInput = {
+                    value: 0
+                };
+                $scope.rangeValues = {
+                    max: 700,
+                    min: 0,
+                    step: 50
+                }
+                $scope.time_type = 'd';
+                /*$scope.typeTimeLbl = {
+                    value: $rootScope.translation["days"]
+                };*/
+            }
+        });
+    }
 
     // Según el valor de días guardados, transformarlo en meses o años en lo posible.
     $scope.castTypeTime = function (timeValue) {
-        if (timeValue == 0) return 0;
+        if (timeValue == 0) return 'd';
         if (timeValue % 365 == 0) return 'y';
         if (timeValue % 30 == 0) return 'm';
         return 'd';
@@ -129,41 +125,54 @@ angular.module('app.controllers', ['app.service'])
         switch (char) {
         case 'm':
             $scope.rangeValues = {
-                max: 24,
-                min: 0,
-                step: 1
-            }
-            //$scope.typeTimeLbl.value = $rootScope.translation["months"];
+                    max: 24,
+                    min: 0,
+                    step: 1
+                }
+                //$scope.typeTimeLbl.value = $rootScope.translation["months"];
             break;
 
         case 'y':
             $scope.rangeValues = {
-                max: 3,
-                min: 0,
-                step: 1
-            }
-            //$scope.typeTimeLbl.value = $rootScope.translation["years"];
+                    max: 3,
+                    min: 0,
+                    step: 1
+                }
+                //$scope.typeTimeLbl.value = $rootScope.translation["years"];
             break;
 
         default:
             $scope.rangeValues = {
-                max: 700,
-                min: 0,
-                step: 50
-            }
-            //$scope.typeTimeLbl.value = $rootScope.translation["days"];
+                    max: 700,
+                    min: 0,
+                    step: 50
+                }
+                //$scope.typeTimeLbl.value = $rootScope.translation["days"];
             break;
+        };
+
+        // Mostrar popup con el valor de los días restantes
+        $scope.showRemainingDays = function (id) {
+            sqlService.select(id).then(function (data) {
+                var day = DateService.addDays(data.rows.item(0).save_date, -1);
+                var day2 = new Date(data.rows.item(0).save_date);
+                var mje = $rootScope.translation.showRemainDaysMsg + $scope.dicDiffDays[id.toUpperCase()] + ". <br> Fecha inicial de conteo: " + day2.getDate() + "/" + (day2.getMonth() + 1) + "/" + day2.getFullYear();
+                var alertPopup = $ionicPopup.alert({
+                    title: $rootScope.translation.showRemainDays,
+                    template: mje
+                });
+            });
         }
     }
 
     $scope.changeTypeTime = function () {
         switch ($scope.time_type) {
-            case 'm':
-                $scope.timeInput.value = $scope.timeInput.value / 30;
-                break;
-            case 'y':
-                $scope.timeInput.value = $scope.timeInput.value / 365;
-                break;
+        case 'm':
+            $scope.timeInput.value = $scope.timeInput.value / 30;
+            break;
+        case 'y':
+            $scope.timeInput.value = $scope.timeInput.value / 365;
+            break;
         }
     };
 
@@ -173,32 +182,19 @@ angular.module('app.controllers', ['app.service'])
 
         var dayValue;
         switch ($scope.time_type) {
-            case 'm':
-                dayValue = $scope.timeInput.value * 30;
-                break;
-            case 'y':
-                dayValue = $scope.timeInput.value * 365;
-                break;
-            default:
-                dayValue = $scope.timeInput.value;
-                break;
+        case 'm':
+            dayValue = $scope.timeInput.value * 30;
+            break;
+        case 'y':
+            dayValue = $scope.timeInput.value * 365;
+            break;
+        default:
+            dayValue = $scope.timeInput.value;
+            break;
         }
 
         sqlService.insertOrUpdate(id, dayValue, $rootScope.translation[id + "TextNotification"]);
     };
-
-    // Mostrar popup con el valor de los días restantes
-    $scope.showRemainingDays = function (id) {
-        sqlService.select(id).then(function (data) {
-            var day = DateService.addDays(data.rows.item(0).save_date, -1);
-            var day2 = new Date(data.rows.item(0).save_date);
-            var mje = $rootScope.translation.showRemainDaysMsg + $scope.dicDiffDays[id.toUpperCase()] + ". <br> Fecha inicial de conteo: " + day2.getDate() + "/" + (day2.getMonth() + 1) + "/" + day2.getFullYear();
-            var alertPopup = $ionicPopup.alert({
-                title: $rootScope.translation.showRemainDays,
-                template: mje
-            });
-        });
-    }
 
     // Si cancela, el rangeBar se resetea!
     $scope.reset = function (id) {
@@ -263,6 +259,7 @@ angular.module('app.controllers', ['app.service'])
     }).then(function (modal) {
         $scope.modal = modal;
     });
+
 
     $scope.openIntroductionModal = function () {
         $scope.modal.show();
@@ -360,5 +357,3 @@ angular.module('app.controllers', ['app.service'])
         $scope.loadABM("timingbeltchange");
     });
 })
-
-//

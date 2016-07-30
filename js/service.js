@@ -29,16 +29,35 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
     "Timingbeltchange": 12
 })
 
+.constant('idsScheduleXDays', {
+    "OilChange": 36,
+    "OilFilterChange": 37,
+    "AirFilterChange": 38,
+    "cabinFilterChange": 39,
+    "PlugsChange": 40,
+    "TiresChange": 41,
+    "DampersChange": 42,
+    "CarWorkshopReview": 43,
+    "Coolantchange": 44,
+    "brakepadschange": 45,
+    "brakefluidchange": 46,
+    "Timingbeltchange": 47
+})
+
+.constant('ExpireSoonDays', {
+    value: 5
+})
+
 .service('DateService', function () {
     this.diffDates = function (firstDate, secondDate) {
         var utc1 = moment(firstDate);
-        var utc2 = moment(secondDate);        
-        return utc1.diff(utc2,'days');
+        var utc2 = moment(secondDate);
+        return utc1.diff(utc2, 'days');
     };
 
     this.addDays = function (date, days) {
         var aux = moment(date);
-        aux.add(days,'days')
+        aux.add(days, 'days')
         return aux.toDate();
     }
 })
@@ -52,7 +71,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
     };
 })
 
-.service("sqlService", function ($cordovaSQLite, $ionicPopup, $rootScope, translationService, localNotificationService, idsSchedule, $ionicHistory, $state, DateService) {
+.service("sqlService", function ($cordovaSQLite, $ionicPopup, $rootScope, translationService, localNotificationService, idsSchedule, $ionicHistory, $state, DateService,idsScheduleXDays,ExpireSoonDays) {
     var self = this;
 
     self.execute = function (query, parameter) {
@@ -61,7 +80,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         return $cordovaSQLite.execute(db, query, parameter);
     };
 
-    self.insert = function (id, time_value, text) {
+    self.insert = function (id, time_value, text,textXDays) {
         id = id.toUpperCase();
         var query = "INSERT INTO abm_values (id, time_value, save_date) VALUES (?,?,?)";
         var today = moment().format('YYYY-MM-DD');
@@ -88,7 +107,9 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                 });
 
             });
-        localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), time_value));
+        var fechaDeNotificacion= DateService.addDays(new Date(), time_value);
+        localNotificationService.scheduleDate(idsSchedule[id], text, fechaDeNotificacion,text );
+        localNotificationService.scheduleDate(idsScheduleXDays[id], textXDays, DateService.addDays(fechaDeNotificacion, (-1)*ExpireSoonDays.value));
     };
 
     self.selectAll = function () {
@@ -153,7 +174,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
         });
     }
 
-    self.update = function (time_value, id, text) {
+    self.update = function (time_value, id, text,textXDays) {
         // Se pregunta si el usuario desea reiniciar el contador de días
         var confirmPopup = $ionicPopup.confirm({
             title: $rootScope.translation.askToRebootCount,
@@ -186,7 +207,7 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     alertPopup.then(function (res) {
                         $state.reload();
                     });
-                });                
+                });
             } else {
                 // No se desea reiniciar el contador
                 var query = "UPDATE abm_values SET time_value = ? WHERE UPPER(id) = UPPER(?)";
@@ -208,21 +229,23 @@ angular.module('app.service', ['ionic', 'ngResource', 'ngCordova'])
                     alertPopup.then(function (res) {
                         $state.reload();
                     });
-                });                
+                });
             }
             //Notificacion
-            localNotificationService.scheduleDate(idsSchedule[id], text, DateService.addDays(new Date(), time_value));
+            var fechaDeNotificacion= DateService.addDays(new Date(), time_value);
+            localNotificationService.scheduleDate(idsSchedule[id], text, fechaDeNotificacion);
+            localNotificationService.scheduleDate(idsScheduleXDays[id], textXDays, DateService.addDays(fechaDeNotificacion, (-1)*ExpireSoonDays.value));
         });
 
     };
 
     //Tambien se crea el schedule para ese dia
-    self.insertOrUpdate = function (id, time_value, text) {
+    self.insertOrUpdate = function (id, time_value, text,textXDays) {
         this.select(id).then(function (data) {
             if (data.rows.length > 0) {
-                return self.update(time_value, id, text);
+                return self.update(time_value, id, text,textXDays);
             } else {
-                return self.insert(id, time_value, text);
+                return self.insert(id, time_value, text,textXDays);
             }
         });
     };

@@ -61,5 +61,18 @@
     "CoolantchangeTextNotification": "Cambio de líquido refrigerante",
     "brakepadschangeTextNotification": "Cambio de pastillas de freno",
     "brakefluidchangeTextNotification": "Cambio de líquido de frenos",
-    "timingbeltchangeTextNotification": "Cambio de correa de distribución"
+    "timingbeltchangeTextNotification": "Cambio de correa de distribución",
+
+    "OilChangeTextNotificationXDays": "Cambio de aceite",
+    "OilFilterChangeTextNotificationXDays": "Cambio de filtro de aceite",
+    "AirFilterChangeTextNotificationXDays": "Cambio de filtro de aire",
+    "cabinFilterChangeTextNotificationXDays": "Cambio de filtro de habitáculo",
+    "PlugsChangeTextNotificationXDays": "Cambio de bujías",
+    "TiresChangeTextNotificationXDays": "Cambio de neumáticos",
+    "DampersChangeTextNotificationXDays": "Cambio de amortiguadores",
+    "CarWorkshopReviewTextNotificationXDays":"Revisión periódica taller",
+    "CoolantchangeTextNotificationXDays": "Cambio de líquido refrigerante",
+    "brakepadschangeTextNotificationXDays": "Cambio de pastillas de freno",
+    "brakefluidchangeTextNotificationXDays": "Cambio de líquido de frenos",
+    "timingbeltchangeTextNotificationXDays": "Cambio de correa de distribución"
 }
